@@ -5,7 +5,17 @@ import styles from "../styles/header.module.scss";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Link className={styles.headerTitle} href="/">Saan's Guidebook</Link>
+      <nav className={styles.header}>
+        <Link className={styles.headerLogo} href="/">Saan's Guidebook</Link>
+        <ul>
+          <li className={styles.headerTitle}>
+            <Link href="/">Fitness</Link>
+          </li>
+          <li className={styles.headerTitle}>
+            <Link href="/">Tech</Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 };
