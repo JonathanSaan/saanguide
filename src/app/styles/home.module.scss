@@ -1,0 +1,10 @@
+@import "colors";
+
+.home {
+  background-color: $secondary-color;
+  min-height: 100vh;
+
+  .homeTitle {
+    color: $primary-color;
+  }
+}

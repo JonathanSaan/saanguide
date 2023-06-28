@@ -1,0 +1,18 @@
+@import "colors";
+
+.footer {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  bottom: 0;
+  padding: 0 2vw;
+  height: 5em;
+  width: 100%;
+  background-color: #1d1f2b;
+  align-items: center;
+
+  .footerTitle {
+    color: $primary-color;
+    font-size: 1em;
+  }
+}
