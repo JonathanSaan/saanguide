@@ -1,0 +1,27 @@
+@import "colors";
+
+.footer {
+  position: absolute;
+  padding: 2rem 2rem;
+  width: 100%;
+  bottom: 0;
+  background-color: $black-color;
+  text-align: center;
+
+  .footerTitle {
+    color: $white-color;
+    font-size: 1rem;
+    
+    .footerTitleName {
+      color: $blue-color;
+      
+      &::-moz-selection {
+    	color: $white-color;
+  	  }
+
+      &::selection {
+        color: $white-color;
+  	  }
+    }
+  }
+}

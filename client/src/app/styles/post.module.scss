@@ -1,0 +1,23 @@
+@import "colors";
+
+.post {
+  background-color: $gray-color;
+  padding: 7rem 0;
+  min-height: 100vh;
+  position: relative;
+
+  .post_container {
+    -webkit-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+    background-color: $black-color;
+    color: $white-color;
+    border: 1px solid $gray-color;
+    border-radius: 0.5rem;
+    text-align: center;
+    padding: 1rem 0;
+    margin: 0 auto;
+    height: 30vw;
+    width: 65vw;
+  }
+}

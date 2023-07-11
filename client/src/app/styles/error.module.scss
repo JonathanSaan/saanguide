@@ -1,0 +1,21 @@
+@import "colors";
+
+.error {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: $gray-color;
+  color: $white-color;
+  padding: 0 0 3rem 0;
+  min-height: 100vh;
+  
+  .errorTitle {
+    font-size: 8rem;
+  }
+  
+  .errorSubtitle {
+    font-size: 3rem;
+  }
+}
