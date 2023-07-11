@@ -1,4 +1,4 @@
-## Builting with
+## Building with
 * Next.Js
 * Express
 * MongoDB
