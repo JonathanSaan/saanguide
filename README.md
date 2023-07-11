@@ -1,9 +1,4 @@
-<h1 align="center">Screenshots</h1>
-
-## Demo
-🌑 [Live Demo]()
-
-## Built with
+## Builting with
 * Next.Js
-* Nest.js
+* Express
 * MongoDB
