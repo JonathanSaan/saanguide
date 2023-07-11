@@ -1,19 +1,19 @@
 {
   "name": "saanguide",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "a blog",
+  "main": "server/src/index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node server/src/index.js",
+    "backend": "nodemon server/src/index.js",
+    "frontend": "cd client && npx next dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "react-scripts build"
   },
-  "dependencies": {
-    "eslint": "8.43.0",
-    "eslint-config-next": "13.4.7",
-    "next": "13.4.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sass": "^1.63.6"
+  "author": "JonathanSaan",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^2.0.22"
   }
 }
