@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import connetcDatabase from "./database/db.js";
+import connectDatabase from "./database/db.js";
 import postsRouter from "./routes/posts.route.js"
 
 dotenv.config();
@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-connetcDatabase();
+connectDatabase();
 
 app.use(cors({ origin: process.env.SERVER_FRONT_URL }));
 

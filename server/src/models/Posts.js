@@ -1,12 +1,25 @@
 import mongoose from "mongoose";
 
-const NewsSchema = new mongoose.Schema({
+const PostsSchema = new mongoose.Schema({
   title: {
     type: String,
   },
-  paragraph: {
+  slug: {
     type: String,
   },
+  warn: {
+    type: String,
+  },
+  text: [
+    {
+      subtitle: {
+        type: String,
+      },
+      paragraph: {
+        type: String,
+      },
+    },
+  ],
   banner: {
     type: String,
   },
@@ -14,16 +27,12 @@ const NewsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  likes: {
-    type: Array,
-    require: true,
-  },
   comments: {
     type: Array,
     require: true,
   },
 });
 
-const News = mongoose.model("News", NewsSchema);
+const Posts = mongoose.model("Posts", PostsSchema);
 
-export default News;
+export default Posts;
