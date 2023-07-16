@@ -1,7 +1,7 @@
 {
   "name": "saanguide",
   "version": "1.0.0",
-  "description": "a blog",
+  "description": "A blog filled with programming tips and fitness activities to boost your personal growth.",
   "main": "server/src/index.js",
   "scripts": {
     "start": "node server/src/index.js",
@@ -15,5 +15,8 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "next": "^13.4.10"
   }
 }
