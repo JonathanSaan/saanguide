@@ -5,7 +5,7 @@ export const metadata = {
     icon: '/brain.png',
   },
   title: "Saan's Guidebook",
-  description: "A blog filled with mobile programming tips and fitness activities to boost your personal growth.",
+  description: "A blog filled with programming tips and fitness activities to boost your personal growth.",
 };
 
 export default function RootLayout({ children }) {

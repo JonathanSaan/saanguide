@@ -22,21 +22,10 @@
     font-size: 2rem;
     font-weight: 700;
   }
+}
 
-  .headerTitle {
-    display: inline;
-    text-decoration: none;
-    cursor: pointer;
-    margin: 0 0 0 1rem;
-    color: $white-color;
-    font-size: 1rem;
-    font-weight: 700;
-    -webkit-transition: 300ms;
-    -o-transition: 300ms;
-    transition: 300ms;
-
-    &:hover {
-      color: $blue-color;      
-    }
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 4vw;
   }
 }

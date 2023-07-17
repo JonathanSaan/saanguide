@@ -1,0 +1,68 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/header.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.header_header__alaJH {
+  display: flex;
+  position: absolute;
+  top: 0;
+  padding: 0 1vw;
+  height: 5rem;
+  width: 100%;
+  background-color: #111111;
+  align-items: center;
+}
+.header_header__alaJH .header_headerLogo__IybXW {
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 auto 0 0;
+  color: #fafaf9;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  .header_header__alaJH {
+    padding: 0 4vw;
+  }
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/footer.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__zLNA7 {
+  position: absolute;
+  padding: 2rem 2rem;
+  width: 100%;
+  bottom: 0;
+  background-color: #111111;
+  text-align: center;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH {
+  color: #fafaf9;
+  font-size: 1rem;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH .footer_footerTitleName__voOEm {
+  color: #0057AD;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH .footer_footerTitleName__voOEm::selection {
+  color: #fafaf9;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/error.module.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.error_error__YG9D3 {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #151515;
+  color: #fafaf9;
+  padding: 0 0 3rem 0;
+  min-height: 100vh;
+}
+.error_error__YG9D3 .error_errorTitle__kHGPE {
+  font-size: 8rem;
+}
+.error_error__YG9D3 .error_errorSubtitle__3smjf {
+  font-size: 3rem;
+}

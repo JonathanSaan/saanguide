@@ -1,0 +1,120 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/header.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.header_header__alaJH {
+  display: flex;
+  position: absolute;
+  top: 0;
+  padding: 0 1vw;
+  height: 5rem;
+  width: 100%;
+  background-color: #111111;
+  align-items: center;
+}
+.header_header__alaJH .header_headerLogo__IybXW {
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 auto 0 0;
+  color: #fafaf9;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  .header_header__alaJH {
+    padding: 0 4vw;
+  }
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/footer.module.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__zLNA7 {
+  position: absolute;
+  padding: 2rem 2rem;
+  width: 100%;
+  bottom: 0;
+  background-color: #111111;
+  text-align: center;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH {
+  color: #fafaf9;
+  font-size: 1rem;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH .footer_footerTitleName__voOEm {
+  color: #0057AD;
+}
+.footer_footer__zLNA7 .footer_footerTitle__UwvEH .footer_footerTitleName__voOEm::selection {
+  color: #fafaf9;
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[4].oneOf[9].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[9].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[4].oneOf[9].use[5]!./src/app/styles/post.module.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.post_post__4mO9p {
+  background-color: #151515;
+  padding: 7rem 0;
+  min-height: 100vh;
+  position: relative;
+}
+.post_post__4mO9p .post_post_container__oKSHC {
+  transition: 300ms;
+  background-color: #111111;
+  color: #fafaf9;
+  border: 1px solid #151515;
+  border-radius: 0.5rem;
+  padding: 2rem 3rem;
+  margin: 0 auto;
+  min-height: 50vw;
+  height: auto;
+  width: 65vw;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerTitle__U3fxZ {
+  font-size: 2.5rem;
+  text-align: center;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerImage__jETmF {
+  margin: 1.5rem 0;
+  height: 35vw;
+  width: 100%;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerDate__Oo5Cy {
+  font-size: 1.5rem;
+  text-align: right;
+  margin: 0 0 1rem 0;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerWarn__3QIrQ {
+  font-size: 1.3rem;
+  margin: 0 0 3rem 0;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerSubtitle__7iI3_ {
+  font-size: 2.5rem;
+}
+.post_post__4mO9p .post_post_container__oKSHC .post_post_containerParagraph__5mG_R {
+  font-size: 1.5rem;
+  margin: 1rem 0 4rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .post_post__4mO9p > .post_post_container__oKSHC {
+    padding: 2rem 1.5rem;
+    width: 92vw;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerTitle__U3fxZ {
+    font-size: 1.8rem;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerImage__jETmF {
+    margin: 1rem 0;
+    height: 55vw;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerDate__Oo5Cy {
+    font-size: 1.2rem;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerWarn__3QIrQ {
+    font-size: 1rem;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerSubtitle__7iI3_ {
+    font-size: 1.8rem;
+  }
+  .post_post__4mO9p > .post_post_container__oKSHC .post_post_containerParagraph__5mG_R {
+    font-size: 1.2rem;
+  }
+}

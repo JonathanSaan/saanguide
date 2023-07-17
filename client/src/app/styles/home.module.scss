@@ -19,16 +19,66 @@
       border: 1px solid $gray-color;
       border-radius: .5rem;
       margin: .5vw 0 .5vw 0;
-      padding: 1rem;
-      height: 31vw;
-      width: 44vw;
-      
+      padding: 2rem 3rem;
+      min-height: 32vw;
+      height: auto;
+      width: 43vw;
+
       .home_container_cardTitle {
-        font-size: 2rem;
+        font-size: 2.3rem;
+      }
+
+      .home_container_cardImage {
+        margin: 1.5rem 0 1rem 0;
+        height: 22vw;
+        width: 100%;
+      }
+
+      .home_container_cardDate {
+        font-size: 1.3rem;
+        text-align: right;
+        margin: 0 0 1rem 0;
+      }
+
+      .home_container_cardParagraph {
+        font-size: 1.3rem;
       }
 
       &:hover {
         border: 1px solid $blue-color;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    padding: 6rem 0 3rem 0;
+
+    .home_container {
+      margin: 0 0 0 4vw;
+
+      .home_container_card {
+        padding: 2rem;
+        width: 92vw;
+
+        .home_container_cardTitle {
+          font-size: 1.5rem;
+        }
+
+        .home_container_cardImage {
+          margin: 1rem 0 .7rem 0;
+          height: 57vw;
+        }
+
+        .home_container_cardDate {
+          font-size: 1.2rem;
+          margin: 0 0 .7rem 0;
+        }
+
+        .home_container_cardParagraph {
+          font-size: 1.2rem;
+        }
       }
     }
   }
