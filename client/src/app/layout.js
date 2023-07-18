@@ -2,7 +2,7 @@ import "./styles/globals.scss";
 
 export const metadata = {
   icons: {
-    icon: '/brain.png',
+    icon: '/icon.png',
   },
   title: "Saan's Guidebook",
   description: "A blog filled with programming tips and fitness activities to boost your personal growth.",
