@@ -4,6 +4,9 @@ const PostsSchema = new mongoose.Schema({
   title: {
     type: String,
   },
+  author: {
+    type: String,
+  },
   slug: {
     type: String,
   },

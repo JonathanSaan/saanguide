@@ -55,7 +55,10 @@ const Post = async ({ params }) => {
                 alt="Picture of the post"
               />
             </header>
-            <p className={styles.post_containerDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</p>
+            <span className={styles.post_container_details}>
+              <p className={styles.post_container_detailsAuthor}>{post.author}</p>
+              <p className={styles.post_container_detailsDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</p>
+            </span>
             <p className={styles.post_containerWarn}>{post.warn}</p>
             {post.text.map((one) => (
               <div key={one.id}>

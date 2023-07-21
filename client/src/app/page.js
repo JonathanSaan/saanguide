@@ -41,9 +41,12 @@ const Home = async () => {
                     />
                   </Link>
                 </header>
-                <p className={styles.home_container_cardDate}>
-                  {moment(post.createdAt).format("MMM DD, YYYY")}
-                </p>
+                <span className={styles.home_container_card_details}>
+                  <p className={styles.home_container_card_detailsAuthor}>{post.author}</p>
+                  <p>
+                    {moment(post.createdAt).format("MMM DD, YYYY")}
+                  </p>
+                </span>
                 {post.text.slice(0, 1).map((one, index) => (
                   <Link href={`/${post.slug}`} key={index}>
                     <p className={styles.home_container_cardParagraph}>

@@ -35,6 +35,7 @@ export const findAll = async (req, res) => {
       results: posts.map((item) => ({
         id: item.id,
         title: item.title,
+        author: item.author,
         slug: item.slug,
         warn: item.warn,
         text: item.text,

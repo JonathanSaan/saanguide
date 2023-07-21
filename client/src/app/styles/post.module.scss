@@ -27,15 +27,16 @@
     }
 
     .post_containerImage {
-      margin: 1.5rem 0;
+      margin: 1.5rem 0 0 0;
       height: 35vw;
       width: 100%;
     }
 
-    .post_containerDate {
+    .post_container_details {
+      display: flex;
+      justify-content: space-between;
+      margin: 1.5rem 0;
       font-size: 1.5rem;
-      text-align: right;
-      margin: 0 0 1rem 0;
     }
 
     .post_containerWarn {
@@ -65,13 +66,13 @@
     }
 
     .post_containerImage {
-      margin: 1rem 0 .7rem 0;
+      margin: 1rem 0 0 0;
       height: 55vw;
     }
 
-    .post_containerDate {
-      font-size: 1.2rem;
-      margin: 0 0 .7rem 0;
+    .post_container_details {
+      margin: 1.2rem 0;
+      font-size: 1.3rem;
     }
 
     .post_containerWarn {
