@@ -1,0 +1,110 @@
+@import "colors";
+
+.container {
+  position: fixed;
+  background-color: $black-color;
+  border-radius: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem 4rem;
+  min-height: 35rem;
+  height: auto;
+  min-width: 30rem;
+  z-index: 3;
+
+  .containerTitle {
+    color: $white-color;
+    text-align: center;
+    margin: 0 0 3rem 0;
+  }
+
+  .container_form {
+    display: flex;
+    flex-direction: column;
+    min-height: 24rem;
+
+    .container_formInput {
+      border: 1px solid $white-color;
+      border-radius: .5rem;
+      outline: none;
+      margin: 0 0 1vw 0;
+      padding: 0 0 0 1vw;
+      min-height: 3.5rem;
+      height: 3vw;
+      width: auto;
+
+      &:hover {
+        border: 1px solid $blue-color;
+      }
+    }
+
+    .container_formErrorMessage {
+      margin: -.5vw 0 .5vw 0;
+      color: $red-color;
+
+      &.accountNotFound {
+        text-align: center;
+        margin: -2.3vw 0 1vw 0;
+      }
+    }
+
+    .container_formButton {
+      text-transform: capitalize;
+      cursor: pointer;
+      border: none;
+      border-radius: .5rem;
+      background-color: $blue-color;
+      outline: none;
+      margin: auto 0 0 0;
+      bottom: 0;
+      min-height: 3.5rem;
+      height: 3vw;
+      width: auto;
+
+      &:focus {
+        filter: Brightness(.8);
+        transition: 300ms;
+      }
+    }
+  }
+
+  .containerText {
+    color: $white-color;
+    text-align: center;
+    margin: 3rem 0 0 0;
+
+    .containerTextLink {
+      color: $blue-color;
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 3rem;
+    min-height: 40rem;
+    height: 50vw;
+    min-width: 25rem;
+    width: 65vw;
+    z-index: 2;
+
+    .container_form {
+      padding: 0;
+      min-height: 24rem;
+
+      .container_formInput {
+        margin: 0 0 1.5vw 0;
+        padding: 0 0 0 1rem;
+        min-height: 3.8rem;
+        height: 7vw;
+      }
+
+      .container_formButton {
+        min-height: 3.8rem;
+        height: 7vw;
+      }
+    }
+  }
+}
