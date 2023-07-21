@@ -1,20 +1,16 @@
 "use server";
 
-import { cookies } from "next/headers"; 
+import { cookies } from "next/headers";
 
 export async function getItem() {
   const token = cookies().get("token");
   const user = cookies().get("user");
 
-  return {
+  return { 
     token: token,
-    user: user,
+    user: user 
   };
 }
-
-
-
-
 
 export async function setItem(data) {
   cookies().set("token", data.token);
