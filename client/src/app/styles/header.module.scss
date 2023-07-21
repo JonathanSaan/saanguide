@@ -13,6 +13,7 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  z-index: 1;
 
   .headerLogo {
     text-decoration: none;
@@ -22,10 +23,107 @@
     font-size: 2rem;
     font-weight: 700;
   }
+  
+  .header_menu {
+    display: flex;
+    align-items: center;
+  
+    .header_menuItem {
+      cursor: pointer;
+      margin: 0 0 0 1rem;
+      font-size: 1rem;
+      color: $white-color;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: $blue-color;
+      }
+    }
+  }
+  
+  .header_hamburger {
+    display: none;
+    cursor: pointer;
+    margin: 0 .5rem 0 0;
+    
+    .header_hamburgerBar {
+      display: block;
+      margin: .5rem auto;
+      height: .2rem;
+      width: 2rem;
+      border-radius: 2px;
+      background-color: $white-color;
+      transition: transform .3s ease;
+    }
+  }
+}
+
+.background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $background-color;
+  z-index: 2;
 }
 
 @media screen and (max-width: 768px) {
   .header {
     padding: 0 4vw;
+    z-index: 3;
+    
+    .headerLogo {
+      font-size: 1.5rem;
+    }
+  
+    .header_menu {
+      background-color: $black-color;
+      backdrop-filter: blur(.15rem);
+      text-align: center;
+      flex-direction: column;
+      position: absolute;
+      z-index: 2;
+      left: -100%;
+      top: 5rem;
+      width: 100%;
+      
+      .header_menuItem {
+        display: inline;
+        margin: 0;
+        padding: 1.5rem 0;
+        width: 100%;
+      }
+      
+      &.active {
+        left: 0;
+        z-index: 3;
+      }
+      
+      &.headerLowZIndex {
+        z-index: 1;
+      }
+    }
+    
+    .header_hamburger {
+      display: block;
+      z-index: 3;
+      
+      &:nth-child(1) {
+        transform: translateY(.1rem) rotate(0deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: translateY(-.1rem) rotate(0deg);
+      }
+      
+      &.active {
+        z-index: 2;
+      }
+    }
   }
 }

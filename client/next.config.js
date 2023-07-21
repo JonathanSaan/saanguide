@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  experimental: {
+    serverActions: true,
+  },
   images: {
     domains: ['localhost', 'encrypted-tbn1.gstatic.com'],
   },

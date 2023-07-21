@@ -1,4 +1,35 @@
 {
-  "node": {},
+  "node": {
+    "5881e1fa8f54c915d29e4ba591e1410afddbad83": {
+      "workers": {
+        "app/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!",
+        "app/[slug]/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "sc_action",
+        "app/[slug]/page": "sc_action"
+      }
+    },
+    "c9dd481696b4b8ce8026578c200151d148f793e2": {
+      "workers": {
+        "app/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!",
+        "app/[slug]/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "sc_action",
+        "app/[slug]/page": "sc_action"
+      }
+    },
+    "3c2dec5dd5139c891adc5d9220be524ad643e09a": {
+      "workers": {
+        "app/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!",
+        "app/[slug]/page": "(sc_action)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fjonathan%2FDesktop%2Ffolders%2Fprojects%2Fweb%2Fsaanguide%2Fclient%2Fsrc%2Fapp%2Futils%2Fcookie.js%22%2C%5B%22getItem%22%2C%22setItem%22%2C%22deleteItem%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "sc_action",
+        "app/[slug]/page": "sc_action"
+      }
+    }
+  },
   "edge": {}
 }
