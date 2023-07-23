@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function postLogin(event) {
+export default async function postLogin(data) {
   try {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_BACK_URL}/auth/login`, data);
 

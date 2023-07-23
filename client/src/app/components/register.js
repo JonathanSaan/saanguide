@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 
 import postRegister from "../api/postRegister";
@@ -6,7 +10,11 @@ import errorMessages from "../utils/errorMessages";
 import { setItem } from "../utils/cookie";
 import styles from "../styles/form.module.scss";
 
-const Register = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClick }) => {
+const Register = ({
+  setUserLoggedIn,
+  handleFormClick,
+  handleRemoveBackgroundClick,
+}) => {
   const {
     register,
     handleSubmit,
@@ -14,14 +22,29 @@ const Register = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClic
     watch,
   } = useForm();
 
+  const [usernameRegistered, setUsernameRegistered] = useState("");
+  const [emailRegistered, setEmailRegistered] = useState("");
+
   const onSubmit = async (data) => {
     const response = await postRegister(data);
-    
+    setUsernameRegistered("");
+    setEmailRegistered("");
+
+    if (response.status === 403 && response.usernameRegistered) {
+      setUsernameRegistered(response.message);
+    }
+  
+    if (response.status === 403 && response.emailRegistered) {
+      setEmailRegistered(response.message);
+    }
+
     const { token, user } = response;
-    
-    setItem({ token, user });
-    setUserLoggedIn(user);
-    handleRemoveBackgroundClick();
+
+    if (token, user) {
+      setItem({ token, user });
+      setUserLoggedIn(user);
+      handleRemoveBackgroundClick();
+    }
   };
 
   return (
@@ -44,6 +67,11 @@ const Register = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClic
             },
           })}
         />
+        {usernameRegistered && (
+          <p className={styles.container_formErrorMessage}>
+            {usernameRegistered}
+          </p>
+        )}
         {useFormErrorMessage(errors, "username")}
 
         <input
@@ -55,6 +83,11 @@ const Register = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClic
             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
           })}
         />
+        {emailRegistered && (
+          <p className={styles.container_formErrorMessage}>
+            {emailRegistered}
+          </p>
+        )}
         {useFormErrorMessage(errors, "email")}
 
         <input
@@ -82,20 +115,22 @@ const Register = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClic
           placeholder="Repeat password"
           {...register("repeatPassword", {
             required: errorMessages.repeatPassword.required,
-            validate: (value) => value === watch("password") || "Passwords do not match.",
+            validate: (value) =>
+              value === watch("password") || "Passwords do not match.",
           })}
         />
         {useFormErrorMessage(errors, "repeatPassword")}
-        
+
         <button className={styles.container_formButton}>register</button>
       </form>
 
-      <p
-        className={styles.containerText}
-        onClick={() => handleFormClick("login")}
-      >
+      <p className={styles.containerText}>
         Already have an account?
-        <span className={styles.containerTextLink}> Login</span>
+        <span
+          className={styles.containerTextLink}
+          onClick={() => handleFormClick("login")}
+        > Login
+        </span>
       </p>
     </div>
   );

@@ -6,6 +6,11 @@ export default async function postRegister(data) {
   
     return response.data;
   } catch (error) {
-    return error.response.data.message;
+    return {
+      status: error.response.status,
+      message: error.response.data.message,
+      usernameRegistered: error.response.data.usernameRegistered,
+      emailRegistered: error.response.data.emailRegistered,
+    };
   }
 }

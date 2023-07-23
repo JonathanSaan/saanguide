@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 
@@ -10,7 +10,11 @@ import errorMessages from "../utils/errorMessages";
 import { setItem } from "../utils/cookie";
 import styles from "../styles/form.module.scss";
 
-const Login = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClick }) => {
+const Login = ({
+  setUserLoggedIn,
+  handleFormClick,
+  handleRemoveBackgroundClick,
+}) => {
   const {
     register,
     handleSubmit,
@@ -19,23 +23,21 @@ const Login = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClick }
 
   const [accountNotFound, setAccountNotFound] = useState("");
 
-  const onSubmit = async (event) => {
-    const response = await PostLogin(event);
+  const onSubmit = async (data) => {
+    const response = await PostLogin(data);
 
     if (response.error) {
-      setAccountNotFound(response.message);
+      return setAccountNotFound(response.message);
     }
 
     const { token, user } = response;
 
-    if (token && user) {
-      setAccountNotFound("");
-      setItem({ token, user });
-      setUserLoggedIn(user);
-      handleRemoveBackgroundClick();
-    };
+    setAccountNotFound("");
+    setItem({ token, user });
+    setUserLoggedIn(user);
+    handleRemoveBackgroundClick();
   };
-  
+
   return (
     <div className={styles.container}>
       <h1 className={styles.containerTitle}>Login</h1>
@@ -78,12 +80,13 @@ const Login = ({ setUserLoggedIn, handleFormClick, handleRemoveBackgroundClick }
         <button className={styles.container_formButton}>Login</button>
       </form>
 
-      <p
-        className={styles.containerText}
-        onClick={() => handleFormClick("register")}
-      >
+      <p className={styles.containerText}>
         Don't have an account?
-        <span className={styles.containerTextLink}> Register</span>
+        <span
+          className={styles.containerTextLink}
+          onClick={() => handleFormClick("register")}
+        > Register
+        </span>
       </p>
     </div>
   );
