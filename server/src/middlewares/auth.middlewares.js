@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import jvt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { findByIdService } from "../services/user.service.js";
 
@@ -15,7 +15,7 @@ const authMiddleware = (req, res, next) => {
       return res.send(401);
     }
 
-    jvt.verify(token, process.env.SECRET_JVT, async (error, decoded) => {
+    jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
       if (error) {
         return res.status(401).send({ message: "You need to be logged in." });
       }
