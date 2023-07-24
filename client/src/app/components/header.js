@@ -63,10 +63,7 @@ const Header = () => {
         <Link className={styles.headerLogo} href="/">
           Saan's Guidebook
         </Link>
-
-        <ul
-          className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}
-        >
+        <ul className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
           {user ? (
             <>
               <li className={styles.header_menuItem}>
