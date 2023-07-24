@@ -1,17 +1,21 @@
+import CheckLocalStorage from "./checkLocalStorage";
 import "./styles/globals.scss";
 
 export const metadata = {
   icons: {
-    icon: '/icon.png',
+    icon: "/icon.png",
   },
   title: "Saan's Guidebook",
-  description: "A blog filled with programming tips and fitness activities to boost your personal growth.",
+  keywords: ["Blog", "fitness", "information"],
+  description: "A blog about interesting things of which I have a certain domain.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body suppressHydrationWarning={true}>
+        <CheckLocalStorage>{children}</CheckLocalStorage>
+      </body>
     </html>
   );
 }

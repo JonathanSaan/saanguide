@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-import { getItem, deleteItem } from "../utils/cookie";
 import Login from "./login";
 import Register from "./register";
 import styles from "../styles/header.module.scss";
@@ -14,25 +13,13 @@ const Header = () => {
   const [showBackground, setShowBackground] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [headerLowZIndex, setHeaderLowZIndex] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState(null);
+  const [user, setUser] = useState(false);
   
-  useEffect(() => {
-    const checkLoggedInStatus = async () => {
-      const { user } = await getItem();
-      setUserLoggedIn(user);
-    }
-    checkLoggedInStatus();
-  }, []);
-
   const handleSignOut = () => {
-    deleteItem()
-    setUserLoggedIn(false);
+    localStorage.clear();
+    setUser(false);
   };
   
-  if (!getItem) {
-    handleSignOut();
-  }
-
   const handleFormClick = (type) => {
     setShowBackground(true);
     setMenuActive(false);
@@ -63,13 +50,16 @@ const Header = () => {
     setHeaderLowZIndex(menuActive);
   };
 
+  useEffect(() => {
+    const loggedString = localStorage.getItem("user");
+    const logged = loggedString ? JSON.parse(loggedString) : false;
+    setUser(logged);
+    
+  }, []);
+
   return (
     <>
-      <header
-        className={`${styles.header} ${
-          headerLowZIndex ? styles.headerLowZIndex : ""
-        }`}
-      >
+      <header className={`${styles.header} ${headerLowZIndex ? styles.headerLowZIndex : ""}`}>
         <Link className={styles.headerLogo} href="/">
           Saan's Guidebook
         </Link>
@@ -77,7 +67,7 @@ const Header = () => {
         <ul
           className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}
         >
-          {userLoggedIn ? (
+          {user ? (
             <>
               <li className={styles.header_menuItem}>
                 <Link href="/">Create Post</Link>
@@ -92,22 +82,20 @@ const Header = () => {
                 className={styles.header_menuItem}
                 onClick={() => handleFormClick("login")}
               >
-                Login
+                <h3>Login</h3>
               </li>
               <li
                 className={styles.header_menuItem}
                 onClick={() => handleFormClick("register")}
               >
-                Register
+                <h3>Register</h3>
               </li>
             </>
           )}
         </ul>
 
         <div
-          className={`${styles.header_hamburger} ${
-            menuActive ? styles.active : ""
-          }`}
+          className={`${styles.header_hamburger} ${menuActive ? styles.active : ""}`}
           onClick={toggleMenu}
         >
           <span className={styles.header_hamburgerBar}></span>
@@ -125,14 +113,14 @@ const Header = () => {
 
       {showLogin && (
         <Login
-          setUserLoggedIn={setUserLoggedIn}
+          setUser={setUser}
           handleFormClick={handleFormClick}
           handleRemoveBackgroundClick={handleRemoveBackgroundClick}
         />
       )}
       {showRegister && (
-        <Register 
-          setUserLoggedIn={setUserLoggedIn} 
+        <Register
+          setUser={setUser}
           handleFormClick={handleFormClick} 
           handleRemoveBackgroundClick={handleRemoveBackgroundClick} 
         />

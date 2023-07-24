@@ -7,14 +7,9 @@ import { useForm } from "react-hook-form";
 import postRegister from "../api/postRegister";
 import useFormErrorMessage from "../utils/useFormErrorMessage";
 import errorMessages from "../utils/errorMessages";
-import { setItem } from "../utils/cookie";
 import styles from "../styles/form.module.scss";
 
-const Register = ({
-  setUserLoggedIn,
-  handleFormClick,
-  handleRemoveBackgroundClick,
-}) => {
+const Register = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => {
   const {
     register,
     handleSubmit,
@@ -41,8 +36,9 @@ const Register = ({
     const { token, user } = response;
 
     if (token, user) {
-      setItem({ token, user });
-      setUserLoggedIn(user);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
       handleRemoveBackgroundClick();
     }
   };

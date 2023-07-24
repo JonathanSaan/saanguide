@@ -7,14 +7,9 @@ import { useForm } from "react-hook-form";
 import PostLogin from "../api/postLogin";
 import useFormErrorMessage from "../utils/useFormErrorMessage";
 import errorMessages from "../utils/errorMessages";
-import { setItem } from "../utils/cookie";
 import styles from "../styles/form.module.scss";
 
-const Login = ({
-  setUserLoggedIn,
-  handleFormClick,
-  handleRemoveBackgroundClick,
-}) => {
+const Login = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => {
   const {
     register,
     handleSubmit,
@@ -33,8 +28,9 @@ const Login = ({
     const { token, user } = response;
 
     setAccountNotFound("");
-    setItem({ token, user });
-    setUserLoggedIn(user);
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
     handleRemoveBackgroundClick();
   };
 
@@ -85,7 +81,9 @@ const Login = ({
         <span
           className={styles.containerTextLink}
           onClick={() => handleFormClick("register")}
-        > Register
+        >
+          {" "}
+          Register
         </span>
       </p>
     </div>
