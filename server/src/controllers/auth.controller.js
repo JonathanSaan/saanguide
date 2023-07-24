@@ -28,8 +28,8 @@ export const login = async (req, res) => {
       return res.status(404).send({ message: "User or Password not found" });
     }
 
-    const token = generateTokenService(user.id, "24hr");
-
+    const token = generateTokenService(user.id);
+    
     res.send({
       user: {
         id: user._id,
@@ -46,9 +46,19 @@ export const register = async (req, res) => {
   try {
     const { username, email, password, repeatPassword } = req.body;
     const errors = [];
+    
+    const existingUsername = await findByUsernameService(username);
+    if (existingUsername) {
+      return res.status(403).send({ usernameRegistered: true, message: "Username is already in use. Please choose a different username." });
+    }
 
     if (!username) {
       errors.push("Username is required.");
+    }
+
+    const existingEmail = await findByEmailService(email);
+    if (existingEmail) {
+      return res.status(403).send({ emailRegistered: true, message: "Email is already in use. Please choose a different email." });
     }
 
     if (!email) {
@@ -89,23 +99,13 @@ export const register = async (req, res) => {
       return res.status(400).send({ message: "The password must contain at least one special character." });
     }
     
-    const existingUsername = await findByUsernameService(username);
-    if (existingUsername) {
-      return res.status(400).send({ message: "Username is already in use. Please choose a different username." });
-    }
-
-    const existingEmail = await findByEmailService(email);
-    if (existingEmail) {
-      return res.status(400).send({ message: "Email is already in use. Please choose a different email." });
-    }
-    
     const user = await createService(req.body);
 
     if (!user) {
       return res.status(400).send({ message: "Error creating user" });
     }
     
-    const token = generateTokenService(user.id, "24hr");
+    const token = generateTokenService(user.id);
 
     res.status(201).send({
       message: "User created successfully",
