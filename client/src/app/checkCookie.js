@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 import Loading from "./loading";
 
-const CheckLocalStorage = ({ children }) => {
+const CheckCookie = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userString = Cookies.get("user");
+    const user = typeof userString !== "undefined" ? JSON.parse(userString) : false;
 
     if (user) {
       setLoading(false);
@@ -23,4 +25,4 @@ const CheckLocalStorage = ({ children }) => {
   return <>{children}</>;
 };
 
-export default CheckLocalStorage;
+export default CheckCookie;

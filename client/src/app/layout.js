@@ -1,4 +1,4 @@
-import CheckLocalStorage from "./checkLocalStorage";
+import CheckCookie from "./checkCookie";
 import "./styles/globals.scss";
 
 export const metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <CheckLocalStorage>{children}</CheckLocalStorage>
+        <CheckCookie>{children}</CheckCookie>
       </body>
     </html>
   );

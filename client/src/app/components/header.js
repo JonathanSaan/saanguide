@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
+import Cookies from "js-cookie";
 
 import Login from "./login";
 import Register from "./register";
@@ -13,10 +15,13 @@ const Header = () => {
   const [showBackground, setShowBackground] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [headerLowZIndex, setHeaderLowZIndex] = useState(false);
-  const [user, setUser] = useState(false);
-  
+
+  const initialUser = Cookies.get("user");
+  const [user, setUser] = useState(initialUser ? JSON.parse(initialUser) : false);
+
   const handleSignOut = () => {
-    localStorage.clear();
+    Cookies.remove("user");
+    Cookies.remove("token");
     setUser(false);
   };
   
@@ -49,13 +54,6 @@ const Header = () => {
     setShowBackground(!menuActive);
     setHeaderLowZIndex(menuActive);
   };
-
-  useEffect(() => {
-    const loggedString = localStorage.getItem("user");
-    const logged = loggedString ? JSON.parse(loggedString) : false;
-    setUser(logged);
-    
-  }, []);
 
   return (
     <>

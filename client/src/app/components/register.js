@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 
 import postRegister from "../api/postRegister";
 import useFormErrorMessage from "../utils/useFormErrorMessage";
@@ -36,8 +37,8 @@ const Register = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => 
     const { token, user } = response;
 
     if (token, user) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      Cookies.set("token", token);
+      Cookies.set("user", JSON.stringify(user));
       setUser(user);
       handleRemoveBackgroundClick();
     }
