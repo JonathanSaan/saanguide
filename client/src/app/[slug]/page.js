@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
   const post = await getPost(params.slug);
   if (!post)
     return {
-      title: "Not Found",
+      title: "Not Found - Saan's Guidebook",
       description: "The page you are looking for does not exist.",
     };
 
@@ -29,13 +29,17 @@ export async function generateMetadata({ params }) {
 export async function generateStaticParams() {
   const posts = await getAllPosts();
 
+  if (!posts || !posts.results || !Array.isArray(posts.results)) {
+    return [];
+  }
+
   return posts.results.map((post) => ({
     slug: post.slug,
   }));
 }
 
 const Post = async ({ params }) => {
-  const post = await getPost(params.slug);
+  const post = await getPost(params.slug) ?? null;
 
   if (!post) notFound();
 
