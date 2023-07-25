@@ -1,7 +1,7 @@
 {
   "name": "saanguide",
   "version": "2.0.0",
-  "description": "A blog filled with programming tips and fitness activities to boost your personal growth.",
+  "description": "A blog about interesting things of which I have a certain domain.",
   "main": "server/src/index.js",
   "scripts": {
     "start": "node server/src/index.js",
