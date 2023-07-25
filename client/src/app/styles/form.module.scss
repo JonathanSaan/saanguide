@@ -10,7 +10,7 @@
   padding: 3rem 4rem;
   min-height: 35rem;
   height: auto;
-  min-width: 30rem;
+  min-width: 35rem;
   z-index: 3;
 
   .containerTitle {
@@ -84,15 +84,15 @@
 @media screen and (max-width: 768px) {
   .container {
     padding: 3rem;
-    min-height: 40rem;
+    min-height: 42rem;
     height: 50vw;
-    min-width: 25rem;
+    min-width: 26rem;
     width: 65vw;
     z-index: 2;
 
     .container_form {
       padding: 0;
-      min-height: 24rem;
+      min-height: 26rem;
 
       .container_formInput {
         margin: 0 0 1.5vw 0;

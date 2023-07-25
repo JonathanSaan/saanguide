@@ -61,7 +61,7 @@
     min-width: 0;
     width: 92vw;
 
-    .post_containerTitle {
+    .post_containerTitle, .post_containerSubtitle {
       font-size: 1.5rem;
     }
 
@@ -77,10 +77,6 @@
 
     .post_containerWarn {
       font-size: 1.1rem;
-    }
-
-    .post_containerSubtitle {
-      font-size: 1.5rem;
     }
 
     .post_containerParagraph {
