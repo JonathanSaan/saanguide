@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -22,8 +20,8 @@ const Home = async () => {
       <main className={styles.home_container}>
         {posts ? (
           <>
-            {posts.results.map((post, index) => (
-              <article key={index} className={styles.home_container_card}>
+            {posts.results.map((post) => (
+              <article key={post.id} className={styles.home_container_card}>
                 <header>
                   <Link
                     href={`/${post.slug}`}
@@ -47,8 +45,8 @@ const Home = async () => {
                     {moment(post.createdAt).format("MMM DD, YYYY")}
                   </p>
                 </span>
-                {post.text.slice(0, 1).map((one, index) => (
-                  <Link href={`/${post.slug}`} key={index}>
+                {post.text.slice(0, 1).map((one) => (
+                  <Link href={`/${post.slug}`} key={one.id}>
                     <p className={styles.home_container_cardParagraph}>
                       {one.paragraph.length > 280 ? `${one.paragraph.slice(0, 280)}...` : one.paragraph}
                     </p>
