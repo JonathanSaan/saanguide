@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 
 import moment from "moment";
 
@@ -11,8 +10,6 @@ import styles from "./styles/home.module.scss";
 
 const Home = async () => {
   const posts = await getAllPosts();
-
-  if (!posts || posts.length === 0) return notFound();
   
   return (
     <div className={styles.home}>
