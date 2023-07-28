@@ -9,7 +9,7 @@
   padding: 0 1vw;
   height: 5rem;
   width: 100%;
-  background-color: $black-color;
+  background-color: $gray-color;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -80,7 +80,7 @@
     }
   
     .header_menu {
-      background-color: $black-color;
+      background-color: $gray-color;
       backdrop-filter: blur(.15rem);
       text-align: center;
       flex-direction: column;

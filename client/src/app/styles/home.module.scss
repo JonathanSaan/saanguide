@@ -1,7 +1,7 @@
 @import "colors";
 
 .home {
-  background-color: $gray-color;
+  background-color: $black-color;
   padding: 5.5rem 0 6rem 0;
   min-height: 100vh;
   position: relative;
@@ -14,9 +14,9 @@
       -webkit-transition: 300ms;
       -o-transition: 300ms;
       transition: 300ms;
-      background-color: $black-color;
+      background-color: $gray-color;
       color: $white-color;
-      border: 1px solid $gray-color;
+      border: 1px solid $black-color;
       border-radius: .5rem;
       margin: .5vw 0 .5vw 0;
       padding: 2rem 3rem;
@@ -51,6 +51,7 @@
 
       .home_container_cardParagraph {
         font-size: 1.3rem;
+        color: $tertiary-gray-color;
       }
 
       &:hover {
