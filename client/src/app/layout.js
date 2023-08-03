@@ -1,3 +1,4 @@
+import { UserProvider } from "./UserContext.js";
 import CheckCookie from "./checkCookie";
 import "./styles/globals.scss";
 
@@ -12,10 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}>
-        <CheckCookie>{children}</CheckCookie>
-      </body>
-    </html>
+    <UserProvider>
+      <html lang="en">
+        <body suppressHydrationWarning={true}>
+          <CheckCookie>{children}</CheckCookie>
+        </body>
+      </html>
+    </UserProvider>
   );
 }

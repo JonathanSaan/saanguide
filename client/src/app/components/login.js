@@ -1,22 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 
 import PostLogin from "../api/postLogin";
 import useFormErrorMessage from "../utils/useFormErrorMessage";
+import { UserContext } from "../UserContext";
 import errorMessages from "../utils/errorMessages";
 import styles from "../styles/form.module.scss";
 
-const Login = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => {
+const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
+  const { setIsLoggedIn } = useContext(UserContext);
+  
   const [accountNotFound, setAccountNotFound] = useState("");
 
   const onSubmit = async (data) => {
@@ -31,7 +34,7 @@ const Login = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => {
     setAccountNotFound("");
     Cookies.set("token", token);
     Cookies.set("user", JSON.stringify(user));
-    setUser(user);
+    setIsLoggedIn("user", JSON.stringify(user));
     handleRemoveBackgroundClick();
   };
 

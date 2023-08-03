@@ -1,35 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Cookies from "js-cookie";
 
 import Login from "./login";
+import { UserContext } from "../UserContext";
 import Register from "./register";
 import styles from "../styles/header.module.scss";
 
 const Header = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [headerLowZIndex, setHeaderLowZIndex] = useState(false);
-
-  const initialUser = Cookies.get("user");
-  const [user, setUser] = useState(initialUser ? JSON.parse(initialUser) : false);
-
+  
   const handleSignOut = () => {
     Cookies.remove("user");
     Cookies.remove("token");
-    setUser(false);
+    setIsLoggedIn(null);
   };
   
   const handleFormClick = (type) => {
     setShowBackground(true);
     setMenuActive(false);
     setHeaderLowZIndex(true);
-
+    document.body.style.overflow = "hidden";
+    
     if (type === "login") {
       setShowLogin(!showLogin);
       setShowRegister(false);
@@ -47,6 +47,7 @@ const Header = () => {
     setShowRegister(false);
     setMenuActive(false);
     setHeaderLowZIndex(false);
+    document.body.style.overflow = "auto";
   };
 
   const toggleMenu = () => {
@@ -62,10 +63,10 @@ const Header = () => {
           Saan's Guidebook
         </Link>
         <ul className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
-          {user ? (
+          {isLoggedIn ? (
             <>
               <li className={styles.header_menuItem}>
-                <Link href="/">Create Post</Link>
+                <Link href="/">Settings</Link>
               </li>
               <li className={styles.header_menuItem} onClick={handleSignOut}>
                 <Link href="/">Leave</Link>
@@ -108,14 +109,12 @@ const Header = () => {
 
       {showLogin && (
         <Login
-          setUser={setUser}
           handleFormClick={handleFormClick}
           handleRemoveBackgroundClick={handleRemoveBackgroundClick}
         />
       )}
       {showRegister && (
         <Register
-          setUser={setUser}
           handleFormClick={handleFormClick} 
           handleRemoveBackgroundClick={handleRemoveBackgroundClick} 
         />

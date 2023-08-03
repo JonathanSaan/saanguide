@@ -1,23 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 
 import postRegister from "../api/postRegister";
 import useFormErrorMessage from "../utils/useFormErrorMessage";
+import { UserContext } from "../UserContext";
 import errorMessages from "../utils/errorMessages";
 import styles from "../styles/form.module.scss";
 
-const Register = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => {
+const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm();
-
+  
+  const { setIsLoggedIn } = useContext(UserContext);
+  
   const [usernameRegistered, setUsernameRegistered] = useState("");
   const [emailRegistered, setEmailRegistered] = useState("");
 
@@ -39,7 +42,7 @@ const Register = ({ setUser, handleFormClick, handleRemoveBackgroundClick }) => 
     if (token, user) {
       Cookies.set("token", token);
       Cookies.set("user", JSON.stringify(user));
-      setUser(user);
+      setIsLoggedIn("user", JSON.stringify(user));
       handleRemoveBackgroundClick();
     }
   };
