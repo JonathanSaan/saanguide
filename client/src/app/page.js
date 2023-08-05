@@ -9,8 +9,9 @@ import Footer from "./components/footer";
 import styles from "./styles/home.module.scss";
 
 const Home = async () => {
-  const posts = await getAllPosts();
-  
+  //const posts = await getAllPosts();
+  const posts = null;
+    
   return (
     <div className={styles.home}>
       <Header />
@@ -38,25 +39,25 @@ const Home = async () => {
                 </header>
                 <span className={styles.home_container_card_details}>
                   <p className={styles.home_container_card_detailsAuthor}>{post.author}</p>
-                  <p>
+                  <p className={styles.home_container_card_detailsDate}>
                     {moment(post.createdAt).format("MMM DD, YYYY")}
                   </p>
                 </span>
-                {post.text.slice(0, 1).map((one) => (
-                  <Link href={`/${post.slug}`} key={one.id}>
-                    <p className={styles.home_container_cardParagraph}>
-                      {one.paragraph.length > 280 ? `${one.paragraph.slice(0, 280)}...` : one.paragraph}
-                    </p>
-                  </Link>
-                ))}
+                <Link href={`/${post.slug}`} className={styles.home_container_cardDescription}>
+                  <p>Read more...</p>
+                </Link>
               </article>
             ))}
           </>
-        ) : null}
+        ) : (
+          <div className={styles.home_containerNofound}>
+            <p>No posts found.</p>
+          </div>
+        )}
       </main>
       <Footer />
     </div>
   );
 };
-
+                
 export default Home;
