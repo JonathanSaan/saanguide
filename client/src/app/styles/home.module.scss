@@ -7,7 +7,7 @@
   position: relative;
 
   .home_container {
-    margin: 0 0 0 9vw;
+    margin: 0 0 0 7%;
     padding: 1rem 0;
     
     .home_containerNofound {
@@ -29,10 +29,11 @@
       color: $white-color;
       border: 1px solid $black-color;
       border-radius: .5rem;
-      margin: .5vw 0 .5vw 0;
+      margin: .5rem 0 1rem 0;
       padding: 2rem 3rem;
-      min-height: 32vw;
+      min-height: 20rem;
       height: auto;
+      min-width: 50rem;
       width: 43vw;
 
       .home_container_cardTitle {
@@ -42,6 +43,7 @@
 
       .home_container_cardImage {
         margin: 1.5rem 0 0 0;
+        min-height: 27rem;
         height: 22vw;
         width: 100%;
       }
@@ -79,13 +81,14 @@
 
 @media screen and (max-width: 768px) {
   .home {
-    padding: 6rem 0 3rem 0;
+    padding: 6rem 0;
 
     .home_container {
       margin: 0 0 0 4vw;
     
       .home_container_card {
         padding: 2rem;
+        min-width: 0;
         width: 92vw;
 
         .home_container_cardTitle {
@@ -94,6 +97,7 @@
 
         .home_container_cardImage {
           margin: 1rem 0 0 0;
+          min-height: 10rem;
           height: 55vw;
         }
 

@@ -9,8 +9,7 @@ import Footer from "./components/footer";
 import styles from "./styles/home.module.scss";
 
 const Home = async () => {
-  //const posts = await getAllPosts();
-  const posts = null;
+  const posts = await getAllPosts();
     
   return (
     <div className={styles.home}>
