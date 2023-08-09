@@ -2,19 +2,18 @@ import { createService, findAllService, findBySlugService, addCommentService, de
 
 export const create = async (req, res) => {
   try {
-    const { title, slug, warn, description, text, banner } = req.body;
+    const { title, slug, author, description, banner } = req.body;
 
-    if (!title || !slug || !warn || !description || !text || !banner) {
+    if (!title || !slug || !author || !banner || !description) {
       res.status(400).send({ message: "Submit all fields for registration" });
     }
 
     await createService({
       title,
       slug,
-      warn,
-      description,
-      text: text,
+      author,
       banner,
+      description,
     });
 
     res.status(201).send({ message: "post created" });
@@ -30,15 +29,17 @@ export const findAll = async (req, res) => {
     if (posts.length === 0) {
       return res.status(400).send({ message: "There are no registered posts" });
     }
-
+    
+    const recentPosts = posts.sort((a, b) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    
     res.send({
-      results: posts.map((item) => ({
+      results: recentPosts.map((item) => ({
         id: item.id,
         title: item.title,
-        author: item.author,
         slug: item.slug,
-        warn: item.warn,
-        text: item.text,
+        author: item.author,
         banner: item.banner,
         createdAt: item.createdAt,
       })),
@@ -70,9 +71,9 @@ export const update = async (req, res) => {
         .send({ message: "Submit at least one field to update the post" });
     }
 
-    const news = await findByIdService(id);
+    const posts = await findByIdService(id);
 
-    if (String(news.user._id) !== req.userId) {
+    if (String(posts.user._id) !== req.userId) {
       return res.status(400).send({ message: "You didn't update this post" });
     }
 
@@ -88,17 +89,35 @@ export const erase = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const news = await findByIdService(id);
+    const posts = await findByIdService(id);
 
-    if (String(news.user._id) !== req.userId) {
+    if (String(posts.user._id) !== req.userId) {
       return res.status(400).send({ message: "You didn't delete this post" });
     }
 
     await eraseService(id);
 
-    return res.send({ message: "News deleted successfully" });
+    return res.send({ message: "Posts deleted successfully" });
   } catch (err) {
     res.status(500).send({ message: err.message });
+  }
+};
+
+export const getAllCommentsBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    
+    const post = await findBySlugService(slug);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const allComments = post.comments;
+
+    res.status(200).send(allComments);
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching all comments:" });
   }
 };
 

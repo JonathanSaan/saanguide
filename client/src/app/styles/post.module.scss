@@ -1,24 +1,23 @@
 @import "colors";
 
 .post {
-  background-color: $gray-color;
-  padding: 7.1rem 0 7rem 0;
+  background-color: $black-color;
+  padding: 7.1rem 0 7.5rem 0;
   min-height: 100vh;
+  overflow-x: hidden;
   position: relative;
 
   .post_container {
-    -webkit-transition: 300ms;
-    -o-transition: 300ms;
-    transition: 300ms;
-    background-color: $black-color;
+    background-color: $gray-color;
     color: $white-color;
     border: 1px solid $gray-color;
     border-radius: .5rem;
-    padding: 2rem 3rem;
     margin: 0 auto;
+    padding: 2rem 3rem .5rem 3rem;
     min-height: 50vw;
     height: auto;
-    width: 60vw;
+    min-width: 45rem;
+    width: 65vw;
 
     .post_containerTitle {
       font-weight: bold;
@@ -27,8 +26,9 @@
     }
 
     .post_containerImage {
-      margin: 1.5rem 0 0 0;
-      height: 35vw;
+      margin: 2rem 0 0 0;
+      min-height: 25rem;
+      height: 37vw;
       width: 100%;
     }
 
@@ -37,20 +37,108 @@
       justify-content: space-between;
       margin: 1.5rem 0;
       font-size: 1.5rem;
-    }
 
-    .post_containerWarn {
-      font-size: 1.3rem;
-      margin: 0 0 3rem 0;
-    }
+      .post_container_detailsAuthor {
+        color: $blue-color;
+        cursor: default;
+      }
 
-    .post_containerSubtitle {
-      font-size: 2.5rem;
+      .post_container_detailsDate {
+        color: $tertiary-gray-color;
+      }
     }
+    
+    .post_container_comments {
+      margin: 7rem 0 0 0;
+      
+      .post_container_comments_addcomment {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 3rem 0;
+        width: 100%;
+  
+        .post_container_comments_addcommentTextarea {
+          border-radius: .5rem;
+          background-color: $black-color;
+          caret-color: $white-color;
+          color: $white-color;
+          border: 1px solid $secondary-gray-color;
+          outline: none;
+          margin: 0 0 2rem 0;
+          padding: 1.5rem 2rem;
+          min-height: 10rem;
+          min-width: 100%;
+          max-width: 100%;
 
-    .post_containerParagraph {
-      font-size: 1.5rem;
-      margin: 1rem 0 4rem 0;
+          &:focus {
+            border: 1px solid $blue-color;
+          }
+        }
+  
+        .post_container_comments_addcommentButton {
+          cursor: pointer;
+          border: none;
+          outline: none;
+          border-radius: .5rem;
+          background-color: $blue-color;
+          color: $white-color;
+          font-size: 1rem;
+          padding: 1rem 2rem;
+          margin: 0 0 0 auto;
+          
+          &:hover {
+            background-color: $secondary-blue-color;
+            transition: 300ms;
+          }
+        }
+      }
+
+      .post_container_commentsNotLoggedInMessage {
+        margin: 0 0 5rem 0;
+        text-align: center;
+
+        .post_container_commentsNotLoggedInMessageColor {
+          color: $blue-color;
+          cursor: pointer;
+        }
+      }
+
+      .post_container_comments_comment {
+        margin: 2rem 0 2.5rem 0;
+
+        .post_container_comments_commentHeader {
+          display: flex;
+          align-items: center;
+
+          .post_container_comments_commentUsername {
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            margin: 0 .6rem 0 0;
+          }
+
+          .post_container_comments_commentTime {
+            color: $secondary-gray-color;
+            font-size: 1rem;
+            margin: .2rem auto 0 0;
+            line-height: 1;
+          }
+
+          .post_container_comments_commentDelete {
+            cursor: pointer;
+            outline: none;
+            border: none;
+            border-radius: .5rem;
+            margin: 0 0 0 1rem;
+            color: $red-color;
+            background-color: transparent;
+          }
+        }
+
+        .post_container_comments_commentByUser {
+          margin: .6rem 0 0 .7rem;
+        }
+      }
     }
   }
 }
@@ -66,13 +154,14 @@
     }
 
     .post_containerImage {
-      margin: 1rem 0 0 0;
+      margin: 2.3rem 0 0 0;
+      min-height: 0;
       height: 55vw;
     }
 
     .post_container_details {
       margin: 1.2rem 0;
-      font-size: 1.3rem;
+      font-size: 1rem;
     }
 
     .post_containerWarn {
@@ -81,6 +170,30 @@
 
     .post_containerParagraph {
       font-size: 1.2rem;
+    }
+
+    .post_container_comments {
+      margin: 5rem 0 0 0;
+
+      .post_container_comments_addcomment {
+        .post_container_comments_addcommentTextarea {
+          margin: 0 0 1rem 0;
+          padding: 1.5rem;
+        }
+        
+        .post_container_comments_addcommentButton {
+          padding: 1rem;
+        }
+      }
+
+      .post_container_commentsNotLoggedInMessage {
+        font-size: 1rem;
+        margin: 2rem 0 3.5rem 0;
+      }
+
+      .post_container_comments_comment > .post_container_comments_commentByUser {
+        margin: .5rem 0 0 .8rem;
+      }
     }
   }
 }
