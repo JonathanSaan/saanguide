@@ -39,7 +39,7 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <dialog open className={styles.container}>
       <h1 className={styles.containerTitle}>Login</h1>
       <form className={styles.container_form} onSubmit={handleSubmit(onSubmit)}>
         {accountNotFound && (
@@ -90,7 +90,7 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
           Register
         </span>
       </p>
-    </div>
+    </dialog>
   );
 };
 

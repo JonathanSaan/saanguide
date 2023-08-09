@@ -48,7 +48,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <dialog open className={styles.container}>
       <h1 className={styles.containerTitle}>Register</h1>
       <form className={styles.container_form} onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -132,7 +132,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         > Login
         </span>
       </p>
-    </div>
+    </dialog>
   );
 };
 
