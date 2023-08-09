@@ -4,26 +4,16 @@ const PostsSchema = new mongoose.Schema({
   title: {
     type: String,
   },
-  author: {
-    type: String,
-  },
   slug: {
     type: String,
   },
-  warn: {
+  author: {
     type: String,
   },
-  text: [
-    {
-      subtitle: {
-        type: String,
-      },
-      paragraph: {
-        type: String,
-      },
-    },
-  ],
   banner: {
+    type: String,
+  },
+  description: {
     type: String,
   },
   createdAt: {
