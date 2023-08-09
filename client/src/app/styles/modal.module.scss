@@ -1,0 +1,76 @@
+@import "colors";
+
+.modal {
+  position: fixed;
+  background-color: $gray-color;
+  border-radius: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 2.5rem;
+  min-height: 21rem;
+  min-width: 38rem;
+  width: 31vw;
+  z-index: 3;
+
+  .modalTitle {
+    color: $white-color;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .modal_buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 10rem 0 0 0;
+
+    .modalButton {
+      cursor: pointer;
+      outline: none;
+      border: none;
+      border-radius: .5rem;
+      padding: 1rem;
+      min-width: 15rem;
+      width: 13vw;
+
+      &.delete {
+        background-color: $red-color;
+      }
+
+      &:hover {
+        filter: Brightness(.8);
+        transition: 200ms;
+
+        &:active {
+          filter: Brightness(.6);
+        }
+      }
+    }
+  }
+}
+
+.background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $background-color;
+  z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    min-width: 0;
+    width: 80vw;
+    
+    .modal_buttons {
+      .modalButton {
+        min-width: 0;
+        width: 30vw;
+      }
+    }
+  }
+}
