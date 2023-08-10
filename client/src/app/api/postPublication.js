@@ -14,7 +14,8 @@ export default async function postPublication(data) {
         },
       }
     );
-
+    
+    return response.data;
   } catch (error) {
     console.log(`Error fetching add publication: ${error.message}`);
   }

@@ -12,13 +12,13 @@ import Footer from "../components/footer";
 import styles from "../styles/publish.module.scss";
 
 const Publish = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, isAdmin } = useContext(UserContext);
   const [title, setTitle] = useState("");
-  const [coverPhoto, setCoverPhoto] = useState("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTIyV5p5nWeJRMvbEtcnSE_-AvSH0KeztqKRObmMEXFL90E1xti");
+  const [coverPhoto, setCoverPhoto] = useState("https://c.pxhere.com/photos/b7/98/book_homework_learning_macbook_pro_person_studying_woman_working-921287.jpg!d");
   const [description, setDescription] = useState("");
   const editor = useRef(null);
   
-  if (!isLoggedIn) {
+  if (!isAdmin) {
     return (
       <div className={styles.publish}>
         <Header />
@@ -28,7 +28,7 @@ const Publish = () => {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
   
   const config = {
@@ -49,16 +49,16 @@ const Publish = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
+    const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '').trim();
     
     await postPublication({
       title: title,
       slug: slug,
-      author: isLoggedIn,
+      author: isLoggedIn.username,
       description: description,
       banner: coverPhoto
     });
-    
+
     setTitle("");
     setCoverPhoto("");
     setDescription("");
