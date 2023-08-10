@@ -1,5 +1,5 @@
 const commentPostedTime = (timeInMileSec) => {
-  let sec = (timeInMileSec / 999).toFixed(0);
+  let sec = (timeInMileSec / 1000).toFixed(0);
   let min = (timeInMileSec / (1000 * 60)).toFixed(0);
   let hrs = (timeInMileSec / (1000 * 60 * 60)).toFixed(0);
   let days = (timeInMileSec / (1000 * 60 * 60 * 24)).toFixed(0);
