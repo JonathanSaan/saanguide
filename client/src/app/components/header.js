@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
 
@@ -11,7 +11,7 @@ import Register from "./register";
 import styles from "../styles/header.module.scss";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useContext(UserContext);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
@@ -22,6 +22,7 @@ const Header = () => {
     Cookies.remove("user");
     Cookies.remove("token");
     setIsLoggedIn(null);
+    setIsAdmin(null);
   };
   
   const handleFormClick = (type) => {
@@ -52,10 +53,19 @@ const Header = () => {
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
+    document.body.style.overflow = "hidden";
     setShowBackground(!menuActive);
     setHeaderLowZIndex(menuActive);
   };
-
+  
+  useEffect(() => {
+    window.addEventListener("resize", handleRemoveBackgroundClick);
+    
+    return () => {
+      window.removeEventListener("resize", handleRemoveBackgroundClick);
+    };
+  }, []);
+  
   return (
     <>
       <header className={`${styles.header} ${headerLowZIndex ? styles.headerLowZIndex : ""}`}>
@@ -63,15 +73,15 @@ const Header = () => {
           Saan's Guidebook
         </Link>
         <ul className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
+          {isAdmin && (
+            <li className={styles.header_menuItem}>
+              <Link href="/publish">Publish</Link>
+            </li>
+          )}
           {isLoggedIn ? (
-            <>
-              <li className={styles.header_menuItem}>
-                <Link href="/">Settings</Link>
-              </li>
-              <li className={styles.header_menuItem} onClick={handleSignOut}>
-                <Link href="/">Leave</Link>
-              </li>
-            </>
+            <li className={styles.header_menuItem} onClick={handleSignOut}>
+              <Link href="/">Leave</Link>
+            </li>
           ) : (
             <>
               <li

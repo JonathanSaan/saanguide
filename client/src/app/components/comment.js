@@ -14,7 +14,7 @@ import styles from "../styles/post.module.scss";
 import stylesBackground from "../styles/header.module.scss";
 
 const Comments = ({ slug }) => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, isAdmin } = useContext(UserContext);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
@@ -106,7 +106,7 @@ const Comments = ({ slug }) => {
         const differenceInTime = today.getTime() - createdAt.getTime();
         const time = commentPostedTime(differenceInTime);
         
-        const isOwner = isLoggedIn && isLoggedIn.username === comment.username;
+        const isOwner = isLoggedIn && isLoggedIn.username === comment.username || isAdmin;
         
         return (
           <div className={styles.post_container_comments_comment} key={comment.idComment}>

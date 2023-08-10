@@ -143,16 +143,17 @@ export const deleteComment = async (req, res) => {
   try {
     const { slug, idComment } = req.params;
     const username = req.username;
-
+    const isAdmin = req.isAdmin;
+    
     const commentDeleted = await deleteCommentService(slug, idComment, username);
+
+    const commentFinder = commentDeleted.comments.find(comment => comment.idComment === idComment);
     
-    const commentFinder = commentDeleted.comments.find(comment => comment.idComment === idComment)
-    
-    if(!commentFinder) {
+    if (!commentFinder) {
       return res.status(400).send({ message: "Comment not found" });
     }
     
-    if (commentFinder.username !== username) {
+    if (commentFinder.username !== username && !isAdmin) {
       return res.status(400).send({ message: "You can't delete this comment" });
     }
 	
@@ -160,4 +161,4 @@ export const deleteComment = async (req, res) => {
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
-}
+};

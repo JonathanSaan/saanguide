@@ -28,12 +28,13 @@ export const login = async (req, res) => {
       return res.status(404).send({ message: "User or Password not found" });
     }
 
-    const token = generateTokenService(user.id);
+    const token = generateTokenService(user._id);
     
     res.send({
       user: {
         id: user._id,
         username: user.username,
+        isAdmin: user.isAdmin,
       },
       token: token,
     });
@@ -105,13 +106,14 @@ export const register = async (req, res) => {
       return res.status(400).send({ message: "Error creating user" });
     }
     
-    const token = generateTokenService(user.id);
+    const token = generateTokenService(user._id);
 
     res.status(201).send({
       message: "User created successfully",
       user: {
         id: user._id,
-        username,
+        username: user.username,
+        isAdmin: user.isAdmin,
       },
       token: token,
     });

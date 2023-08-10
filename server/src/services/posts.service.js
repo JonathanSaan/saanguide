@@ -29,9 +29,17 @@ export const addCommentService = (slug, comment, username) => {
     }
   );
 };
-
-export const deleteCommentService = (slug, idComment, username) =>
-  Posts.findOneAndUpdate(
-    { slug: slug },
-    { $pull: { comments: { idComment: idComment, username: username } } }
+  
+export const deleteCommentService = (slug, idComment, username, isAdmin) => {
+  const filter = { slug: slug };
+  
+  if (!isAdmin) {
+    filter['comments.idComment'] = idComment;
+    filter['comments.username'] = username;
+  }
+  
+  return Posts.findOneAndUpdate(
+    filter,
+    { $pull: { comments: { idComment: idComment } } }
   );
+};
