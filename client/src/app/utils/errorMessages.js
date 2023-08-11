@@ -4,6 +4,7 @@ const errorMessages = {
     pattern:
       "Username can only contain letters, numbers, underscores, and hyphens.",
     minLength: "Username must have at least 4 characters.",
+    maxLength: "Username must have a maximum of 50 characters."
   },
   email: {
     required: "Email is required.",

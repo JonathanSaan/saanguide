@@ -65,6 +65,10 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
               value: 4,
               message: errorMessages.username.minLength,
             },
+            maxLength: {
+              value: 50,
+              message: errorMessages.username.maxLength,
+            },
           })}
         />
         {usernameRegistered && (

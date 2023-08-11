@@ -81,6 +81,10 @@ export const register = async (req, res) => {
     if (username.length < 4) {
       return res.status(400).send({ message: "Username must have at least 4 characters." });
     }
+    
+    if (username.length > 50) {
+      return res.status(400).send({ message: "Username must have a maximum of 50 characters" });
+    }
 
     const usernameRegex = /^[a-zA-Z0-9_-]+$/;
     if (!usernameRegex.test(username)) {
