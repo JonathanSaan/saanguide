@@ -32,8 +32,8 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
     const { token, user } = response;
 
     setAccountNotFound("");
-    Cookies.set("token", token);
-    Cookies.set("user", JSON.stringify(user));
+    Cookies.set("token", token, { expires: 1 });
+    Cookies.set("user", JSON.stringify(user), { expires: 1 });
     setIsLoggedIn("user", JSON.stringify(user));
     handleRemoveBackgroundClick();
   };
