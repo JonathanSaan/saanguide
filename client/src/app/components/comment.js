@@ -2,6 +2,8 @@
 
 import { useContext, useEffect, useState, useCallback } from "react";
 
+import { BsFillTrashFill } from "react-icons/bs";
+
 import postComment from "../api/postComment";
 import getAllComments from "../api/getAllComments";
 import deleteComment from "../api/deleteComment";
@@ -36,11 +38,13 @@ const Comments = ({ slug }) => {
 
   const handleConfirmDeleteComment = async (idComment) => {
     document.body.style.overflow = "auto";
+    document.body.style.cursor = "wait";
     await deleteComment({ slug, idComment });
     setAllComments((prevComments) =>
       prevComments.filter((comment) => comment.idComment !== idComment)
     );
     setCommentToDelete(false);
+    document.body.style.cursor = "default";
   };
 
   const handleFormClick = (type) => {
@@ -115,7 +119,9 @@ const Comments = ({ slug }) => {
               <h5 className={styles.post_container_comments_commentTime}>{time}</h5>
               {isOwner && (
                 <>
-                  <button className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>Delete</button>
+                  <button className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>
+                    <BsFillTrashFill size={20} />
+                  </button>
                   <ModalDelete
                     isOpen={commentToDelete === comment.idComment}
                     onCancel={handleRemoveBackgroundClick}
@@ -145,10 +151,12 @@ const AddComment = ({ slug, fetchComments }) => {
     if (commentText.trim() === "") {
       return;
     }
-    
+
+    document.body.style.cursor = "wait";
     await postComment({ slug, comment: commentText });
     setCommentText("");
     fetchComments();
+    document.body.style.cursor = "default";
   };
   
   return (

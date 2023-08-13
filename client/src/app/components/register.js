@@ -25,15 +25,18 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   const [emailRegistered, setEmailRegistered] = useState("");
 
   const onSubmit = async (data) => {
+    document.body.style.cursor = "wait";
     const response = await postRegister(data);
     setUsernameRegistered("");
     setEmailRegistered("");
 
     if (response.status === 403 && response.usernameRegistered) {
+      document.body.style.cursor = "default";
       setUsernameRegistered(response.message);
     }
   
     if (response.status === 403 && response.emailRegistered) {
+      document.body.style.cursor = "default";
       setEmailRegistered(response.message);
     }
 
@@ -44,6 +47,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
       Cookies.set("user", JSON.stringify(user), { expires: 1 });
       setIsLoggedIn("user", JSON.stringify(user));
       handleRemoveBackgroundClick();
+      document.body.style.cursor = "default";
     }
   };
 

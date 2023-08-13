@@ -23,9 +23,11 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   const [accountNotFound, setAccountNotFound] = useState("");
 
   const onSubmit = async (data) => {
+    document.body.style.cursor = "wait";
     const response = await PostLogin(data);
 
     if (response.error) {
+      document.body.style.cursor = "default";
       return setAccountNotFound(response.message);
     }
 
@@ -36,6 +38,7 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
     Cookies.set("user", JSON.stringify(user), { expires: 1 });
     setIsLoggedIn("user", JSON.stringify(user));
     handleRemoveBackgroundClick();
+    document.body.style.cursor = "default";
   };
 
   return (
