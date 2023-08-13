@@ -30,6 +30,7 @@ const ModifyPublication = ({ slug }) => {
 
   const handleDeletePublication = () => {
     document.body.style.overflow = "hidden";
+    setIsMenuOpen(false);
     setShowBackground(true);
     setPublicationToDelete(slug);
   };

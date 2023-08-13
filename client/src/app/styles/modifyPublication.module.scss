@@ -60,10 +60,8 @@
       color: $tertiary-gray-color;
       border: none;
       cursor: pointer;
-      z-index: 9;
 
       &:hover {
-        //background-color: $secondary-gray-color;
         color: $white-color;
         filter: Brightness(.7);
         transition: 200ms;
