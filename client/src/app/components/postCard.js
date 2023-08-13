@@ -8,7 +8,7 @@ import styles from "../styles/home.module.scss";
 
 const PostCard = ({ post }) => {
   return (
-    <article className={styles.home_container_card} key={post.id}>
+    <article className={styles.home_container_card}>
       <header>
         <Link href={`/${post.slug}`} className={styles.home_container_cardTitle}>
           {post.title}
