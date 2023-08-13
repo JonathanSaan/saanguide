@@ -29,12 +29,13 @@
       color: $white-color;
       border: 1px solid $black-color;
       border-radius: .5rem;
+      word-wrap: break-word;
       margin: .5rem 0 1rem 0;
       padding: 2rem 3rem;
-      min-height: 20rem;
+      min-height: 40rem;
       height: auto;
       min-width: 50rem;
-      width: 43vw;
+      width: 40vw;
 
       .home_container_cardTitle {
         font-weight: bold;
@@ -88,6 +89,7 @@
     
       .home_container_card {
         padding: 2rem;
+        min-height: 30rem;
         min-width: 0;
         width: 92vw;
 
