@@ -47,16 +47,16 @@
         color: $tertiary-gray-color;
       }
     }
-    
+
     .post_container_comments {
       margin: 7rem 0 0 0;
-      
+
       .post_container_comments_addcomment {
         display: flex;
         flex-direction: column;
         margin: 0 0 3rem 0;
         width: 100%;
-  
+
         .post_container_comments_addcommentTextarea {
           border-radius: .5rem;
           background-color: $black-color;
@@ -74,7 +74,7 @@
             border: 1px solid $blue-color;
           }
         }
-  
+
         .post_container_comments_addcommentButton {
           cursor: pointer;
           border: none;
@@ -85,7 +85,7 @@
           font-size: 1rem;
           padding: 1rem 2rem;
           margin: 0 0 0 auto;
-          
+
           &:hover {
             background-color: $secondary-blue-color;
             transition: 300ms;
@@ -132,10 +132,21 @@
             margin: 0 0 0 1rem;
             color: $red-color;
             background-color: transparent;
+
+            &:hover {
+              filter: Brightness(.8);
+              transition: 200ms;
+
+              &:active {
+                filter: Brightness(.6);
+              }
+            }
           }
         }
 
         .post_container_comments_commentByUser {
+          word-wrap: break-word;
+          padding: 0 3rem 0 0;
           margin: .6rem 0 0 .7rem;
         }
       }
@@ -144,55 +155,50 @@
 }
 
 @media screen and (max-width: 768px) {
-  .post > .post_container {
-    padding: 2rem;
-    min-width: 0;
-    width: 92vw;
+  .post {
+    padding: 7.5rem 0;
 
-    .post_containerTitle, .post_containerSubtitle {
-      font-size: 1.5rem;
-    }
+    .post_container {
+      padding: 2rem 1.5rem;
+      min-width: 0;
+      width: 92vw;
 
-    .post_containerImage {
-      margin: 2.3rem 0 0 0;
-      min-height: 0;
-      height: 55vw;
-    }
-
-    .post_container_details {
-      margin: 1.2rem 0;
-      font-size: 1rem;
-    }
-
-    .post_containerWarn {
-      font-size: 1.1rem;
-    }
-
-    .post_containerParagraph {
-      font-size: 1.2rem;
-    }
-
-    .post_container_comments {
-      margin: 5rem 0 0 0;
-
-      .post_container_comments_addcomment {
-        .post_container_comments_addcommentTextarea {
-          margin: 0 0 1rem 0;
-          padding: 1.5rem;
-        }
-        
-        .post_container_comments_addcommentButton {
-          padding: 1rem;
-        }
+      .post_containerTitle, .post_containerSubtitle {
+        font-size: 1.5rem;
       }
 
-      .post_container_commentsNotLoggedInMessage {
+      .post_containerImage {
+        min-height: 0;
+        height: 50vw;
+      }
+
+      .post_container_details {
+        margin: 1rem 0;
         font-size: 1rem;
-        margin: 2rem 0 3.5rem 0;
       }
 
-      .post_container_comments_comment > .post_container_comments_commentByUser {
-        margin: .5rem 0 0 .8rem;
+      .post_container_comments {
+        margin: 5rem 0 0 0;
+
+        .post_container_comments_addcomment {
+          .post_container_comments_addcommentTextarea {
+            margin: 0 0 1rem 0;
+            padding: 1.5rem;
+          }
+
+          .post_container_comments_addcommentButton {
+            padding: 1rem;
+          }
+        }
+
+        .post_container_commentsNotLoggedInMessage {
+          font-size: 1rem;
+          margin: 2rem 0 3.5rem 0;
+        }
+
+        .post_container_comments_comment > .post_container_comments_commentByUser {
+          margin: .5rem 0 0 .8rem;
+        }
       }
     }
   }
