@@ -5,7 +5,7 @@ module.exports = {
     serverActions: true,
   },
   images: {
-    domains: ['localhost', 'encrypted-tbn1.gstatic.com'],
+    domains: ['localhost', 'encrypted-tbn1.gstatic.com', 'c.pxhere.com'],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
