@@ -72,6 +72,9 @@ const Comments = ({ slug }) => {
 
   return (
     <div className={styles.post_container_comments}>
+      <header className={styles.post_container_commentsHeader}>
+        <label>Comments ({allComments.length})</label>
+      </header>
       {isLoggedIn ? (
         <AddComment slug={slug} fetchComments={fetchComments} />
       ) : (

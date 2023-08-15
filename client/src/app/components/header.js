@@ -84,17 +84,11 @@ const Header = () => {
             </li>
           ) : (
             <>
-              <li
-                className={styles.header_menuItem}
-                onClick={() => handleFormClick("login")}
-              >
-                <h3>Login</h3>
+              <li className={styles.header_menuItem} onClick={() => handleFormClick("login")}>
+                Login
               </li>
-              <li
-                className={styles.header_menuItem}
-                onClick={() => handleFormClick("register")}
-              >
-                <h3>Register</h3>
+              <li className={styles.header_menuItem} onClick={() => handleFormClick("register")}>
+                Register
               </li>
             </>
           )}

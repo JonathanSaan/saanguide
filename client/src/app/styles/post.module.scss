@@ -47,10 +47,18 @@
         color: $tertiary-gray-color;
       }
     }
+    
+    .post_container_description {
+      margin: 0 0 20% 0;
+    }
 
     .post_container_comments {
       margin: 7rem 0 0 0;
-
+      
+      .post_container_commentsHeader {
+        margin: 0 0 2rem 0;
+      }
+      
       .post_container_comments_addcomment {
         display: flex;
         flex-direction: column;
@@ -160,6 +168,7 @@
 
     .post_container {
       padding: 2rem 1.5rem;
+      min-height: 10vw;
       min-width: 0;
       width: 92vw;
 
@@ -176,11 +185,17 @@
         margin: 1rem 0;
         font-size: 1rem;
       }
+      
+      .post_container_description {
+        margin: 0 0 40% 0;
+      }
 
       .post_container_comments {
         margin: 5rem 0 0 0;
 
         .post_container_comments_addcomment {
+          margin: 0 0 1rem 0;
+          
           .post_container_comments_addcommentTextarea {
             margin: 0 0 1rem 0;
             padding: 1.5rem;

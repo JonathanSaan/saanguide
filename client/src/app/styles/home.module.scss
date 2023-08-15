@@ -14,6 +14,7 @@
       display: flex;
       position: absolute;
       color: $white-color;
+      white-space: nowrap;
       top: 47%;
       left: 50%;
       transform: translate(-47%, -50%);
@@ -82,7 +83,7 @@
 
     .home_container {
       margin: 0 0 0 4vw;
-    
+      
       .home_container_card {
         padding: 2rem 1.5rem;
         min-height: 20rem;
