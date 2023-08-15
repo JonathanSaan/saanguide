@@ -81,6 +81,7 @@ const Publish = () => {
           setCoverPhoto={setCoverPhoto}
           description={description}
           handleDescriptionUpdate={handleDescriptionUpdate}
+          label="Publish"
         />
       </main>
       <Footer />

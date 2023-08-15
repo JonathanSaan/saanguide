@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
 import { useContext, useState, useRef } from "react";
 
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
@@ -14,6 +15,7 @@ import styles from "../styles/modifyPublication.module.scss";
 import stylesBackground from "../styles/header.module.scss";
 
 const ModifyPublication = ({ slug }) => {
+  const router = useRouter();
   const { isAdmin } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [publicationToDelete, setPublicationToDelete] = useState(false);
@@ -42,6 +44,7 @@ const ModifyPublication = ({ slug }) => {
     await deletePublication(slug);
     handleRemoveBackgroundClick();
     document.body.style.cursor = "default";
+    router.push("/");
   };
   
   const handleClickOutside = (event) => {

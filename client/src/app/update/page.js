@@ -87,6 +87,7 @@ const Update = () => {
           setCoverPhoto={setCoverPhoto}
           description={description}
           handleDescriptionUpdate={handleDescriptionUpdate}
+          label="Update"
         />
       </main>
       <Footer />
