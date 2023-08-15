@@ -10,10 +10,10 @@ const PostCard = ({ post }) => {
   return (
     <article className={styles.home_container_card}>
       <header>
+        <ModifyPublication slug={post.slug} />
         <Link href={`/${post.slug}`} className={styles.home_container_cardTitle}>
           {post.title}
         </Link>
-        <ModifyPublication slug={post.slug} />
       </header>
       <Link href={`/${post.slug}`}>
         <Image

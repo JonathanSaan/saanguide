@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 import axios from "axios";
 
-export default async function postPublication(data) {
+export default async function updatePublication(data) {
   try {
     const token = Cookies.get("token");
 
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_BACK_URL}/publish`,
+    const response = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_BACK_URL}/post/${data.slug}`,
       data,
       {
         headers: {
@@ -17,6 +17,6 @@ export default async function postPublication(data) {
     
     return response.data;
   } catch (error) {
-    return { error: true, message: error.response.data.message };
+    console.log(`Error updating publication: ${error.message}`);
   }
 }

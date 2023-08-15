@@ -1,0 +1,159 @@
+@import "colors";
+
+.publish_edit {
+  background-color: $black-color;
+  padding: 7rem 0 8rem 0;
+  min-height: 100vh;
+  position: relative;
+
+  .AccessDenied {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    top: 48%;
+    left: 50%;
+    transform: translate(-48%, -50%);
+    color: $white-color;
+
+    .AccessDeniedTitle {
+      font-size: 3rem;
+    }
+    .AccessDeniedSubtitle {
+      font-size: 1.5rem;
+    }
+  }
+
+  .publish_edit_container {
+    display: flex;
+    flex-direction: column;
+    background-color: $gray-color;
+    border-radius: .5rem;
+    margin: .5rem auto 1rem auto;
+    padding: 2rem;
+    min-width: 50rem;
+    width: 75vw;
+    
+    .publish_edit_containerErrorMessage {
+      color: $red-color;
+      text-align: center;
+      margin: 0 0 1rem 0;
+    }
+
+    .publish_edit_containerTitle {
+      color: $white-color;
+    }
+    
+    .publish_edit_containerInput {
+      border-radius: .5rem;
+      background-color: $black-color;
+      color: $white-color;
+      border: 1px solid $secondary-gray-color;
+      outline: none;
+      margin: 1rem 0;
+      padding: 1rem;
+      min-width: 30rem;
+      width: 23vw;
+      
+      &:focus {
+        border: 1px solid $blue-color;
+      }
+    }
+    
+    .publish_edit_containerInput_image {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: $white-color;
+      margin: 1rem 0 2.5rem 0;
+      min-height: 3rem;
+      max-width: 30rem;
+    }
+
+    .publish_edit_container_preview {
+      position: relative;
+      margin: 2.5rem 0 .5rem 0;
+      height: 32.5rem;
+
+      .publish_edit_container_previewImage {
+        height: 100%;
+      }
+
+      .publish_edit_container_previewButton {
+        position: absolute;
+        bottom: 0;
+        border: none;
+        border-top-left-radius: .5rem;
+        border-top-right-radius: .5rem;
+        border-bottom-left-radius: .5rem;
+        background-color: $blue-color;
+        color: $white-color;
+        white-space: nowrap;
+        outline: none;
+        font-size: 1rem;
+        margin: 0 0 0 -7.15rem;
+        padding: 1rem;
+        z-index: 6;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $secondary-blue-color;
+          transition: 300ms;
+        }
+      }
+    }
+    
+
+    .publish_edit_containerButton {
+      cursor: pointer;
+      border: none;
+      border-radius: .5rem;
+      background-color: $blue-color;
+      color: $white-color;
+      outline: none;
+      font-size: 1rem;
+      margin: 2.5rem 0 0 0;
+      height: 4rem;
+      width: 100%;
+      
+      &:disabled {
+        background-color: $secondary-blue-color;
+        cursor: not-allowed;
+      }
+      
+      &:hover {
+        background-color: $secondary-blue-color;
+        transition: 300ms;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .publish_edit > .publish_edit_container {
+    padding: 1.5rem;
+    min-width: 0;
+    width: 85vw;
+  
+    .publish_edit_containerInput {
+      min-width: 17rem;
+      width: 37vw;
+    }
+
+    .publish_edit_container_preview {
+      min-height: 15rem;
+      height: 60vw;
+      min-width: 100%;
+      width: 80vw;
+      
+      .publish_edit_container_previewImage {
+        height: 100%;
+        width: 100%;
+      }
+
+      .publish_edit_container_previewButton {
+        margin: 0 0 0 -7.2rem;
+      }
+    } 
+  }
+}

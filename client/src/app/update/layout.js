@@ -1,9 +1,11 @@
+import { Suspense } from "react";
+
 import { UserProvider } from "../UserContext.js";
 import CheckCookie from "../checkCookie";
 import "../styles/globals.scss";
 
 export const metadata = {
-  title: "Publish - Saan's Guidebook",
+  title: "Update - Saan's Guidebook",
   description: "Publication Creation.",
 };
 
@@ -12,7 +14,9 @@ export default function RootLayout({ children }) {
     <UserProvider>
       <html lang="en">
         <body suppressHydrationWarning={true}>
-          <CheckCookie>{children}</CheckCookie>
+          <Suspense fallback={null}>
+            <CheckCookie>{children}</CheckCookie>
+          </Suspense>
         </body>
       </html>
     </UserProvider>

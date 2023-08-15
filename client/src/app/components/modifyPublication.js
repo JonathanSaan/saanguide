@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useContext, useState, useRef } from "react";
 
 import { BsFillTrashFill, BsPencilSquare } from "react-icons/bs";
@@ -62,13 +64,13 @@ const ModifyPublication = ({ slug }) => {
             </button>
             {isMenuOpen && (
               <div className={styles.container_menu}>
+                <Link className={styles.container_menuButton} href={`/update?slug=${slug}`}>
+                  <BsPencilSquare size={20} /> 
+                  <span>Edit publication</span>
+                </Link>
                 <button className={styles.container_menuButton} onClick={handleDeletePublication}>
                   <BsFillTrashFill size={20} /> 
                   <span>Delete publication</span>
-                </button>
-                <button className={styles.container_menuButton}>
-                  <BsPencilSquare size={20} /> 
-                  <span>Edit publication</span>
                 </button>
               </div>
             )}

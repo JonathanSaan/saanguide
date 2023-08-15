@@ -1,11 +1,22 @@
-import { createService, findAllService, findBySlugService, addCommentService, deleteCommentService } from "../services/posts.service.js";
+import { createService, findAllService, findBySlugService, updateService, eraseService, addCommentService, deleteCommentService } from "../services/posts.service.js";
 
 export const create = async (req, res) => {
   try {
-    const { title, slug, author, description, banner } = req.body;
+    const { title, author, banner, description } = req.body;
+    const isAdmin = req.isAdmin;
+    const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '').trim();
 
-    if (!title || !slug || !author || !banner || !description) {
-      res.status(400).send({ message: "Submit all fields for registration" });
+    if (!title || !author || !banner || !description) {
+      return res.status(400).send({ message: "Submit all fields for registration" });
+    }
+
+    if (!isAdmin) {
+      return res.status(400).send({ message: "You don't have permission to create the post." });
+    }
+
+    const existingPost = await findBySlugService(slug);
+    if (existingPost) {
+      return res.status(409).send({ message: "Post with this title already exists." });
     }
 
     await createService({
@@ -54,6 +65,10 @@ export const findBySlug = async (req, res) => {
     const { slug } = req.params;
     const post = await findBySlugService(slug);
 
+    if (!post) {
+      return res.status(400).send({ message: "Post not found." });
+    }
+
     return res.send(post);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -62,24 +77,34 @@ export const findBySlug = async (req, res) => {
 
 export const update = async (req, res) => {
   try {
-    const { title, text, banner } = req.body;
-    const { id } = req.params;
+    const { title, banner, description } = req.body;
+    const { slug } = req.params;
+    const isAdmin = req.isAdmin;
 
-    if (!title && !text && !banner) {
-      res
-        .status(400)
-        .send({ message: "Submit at least one field to update the post" });
+    if (!title && !banner && !description) {
+      res.status(400).send({ message: "Submit at least one field to update the post" });
     }
 
-    const posts = await findByIdService(id);
-
-    if (String(posts.user._id) !== req.userId) {
+    const post = await findBySlugService(slug);
+    
+    if (!post) {
+      return res.status(400).send({ message: "Post not found." });
+    }
+    
+    if (!isAdmin) {
       return res.status(400).send({ message: "You didn't update this post" });
     }
+    
+    const newSlug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '').trim();
 
-    await updateService(id, title, text, banner);
+    const existingPost = await findBySlugService(newSlug);
+    if (existingPost) {
+      return res.status(409).send({ message: "Post with this title already exists." });
+    }
 
-    return res.send({ message: "Post successfully updated!" });
+    await updateService(slug, newSlug, title, banner, description);
+
+    return res.send({ message: "Post updated successfully!" });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -87,17 +112,22 @@ export const update = async (req, res) => {
 
 export const erase = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { slug } = req.params;
+    const isAdmin = req.isAdmin;
 
-    const posts = await findByIdService(id);
+    const post = await findBySlugService(slug);
 
-    if (String(posts.user._id) !== req.userId) {
+    if (!post) {
+      return res.status(400).send({ message: "Post not found." });
+    }
+
+    if (!isAdmin) {
       return res.status(400).send({ message: "You didn't delete this post" });
     }
 
-    await eraseService(id);
+    await eraseService(slug);
 
-    return res.send({ message: "Posts deleted successfully" });
+    return res.send({ message: "Post deleted successfully" });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

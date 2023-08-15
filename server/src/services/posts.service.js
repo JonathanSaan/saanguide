@@ -6,16 +6,16 @@ export const findAllService = () => Posts.find();
 
 export const findBySlugService = (slug) => Posts.findOne({ slug });
 
-export const updateService = (id, title, text, banner) =>
+export const updateService = (oldSlug, newSlug, title, banner, description) =>
   Posts.findOneAndUpdate(
-    { _id: id },
-    { title, text, banner },
+    { slug: oldSlug },
+    { slug: newSlug, title, banner, description },
     {
       rawResult: true,
     }
   );
 
-export const eraseService = (id) => Posts.findByIdAndDelete({ _id: id });
+export const eraseService = (slug) => Posts.findOneAndDelete({ slug: slug });
 
 export const addCommentService = (slug, comment, username) => {
   const idComment = Math.floor(Date.now() * Math.random()).toString(36);

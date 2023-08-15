@@ -6,6 +6,7 @@ import moment from "moment";
 import getAllPosts from "../api/getAllPosts";
 import getPost from "../api/getPost";
 import Header from "../components/header";
+import ModifyPublication from "../components/modifyPublication";
 import Comments from "../components/comment";
 import Footer from "../components/footer";
 import styles from "../styles/post.module.scss";
@@ -52,15 +53,16 @@ const Post = async ({ params }) => {
       <main className={styles.post_container}>
         <article key={post.id}>
           <header>
+            <ModifyPublication slug={post.slug} />
             <h1 className={styles.post_containerTitle}>{post.title}</h1>
-            <Image
-              src={post.banner}
-              className={styles.post_containerImage}
-              width={800}
-              height={500}
-              alt="Picture of the post"
-            />
           </header>
+          <Image
+            src={post.banner}
+            className={styles.post_containerImage}
+            width={800}
+            height={500}
+            alt="Picture of the post"
+          />
           <span className={styles.post_container_details}>
             <p className={styles.post_container_detailsAuthor}>{post.author}</p>
             <p className={styles.post_container_detailsDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</p>

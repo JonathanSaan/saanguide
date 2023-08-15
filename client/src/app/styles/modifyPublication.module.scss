@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: -3rem -2rem 0 0;
+    margin: -1rem -2.5rem 0 0;
     height: 3rem;
     width: 3rem;
     background-color: transparent;
@@ -42,7 +42,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin: 1rem -10.5rem 0 0;
+    margin: 3.1rem -11rem 0 0;
     padding: .5rem 0;
     width: 11rem;
     background-color: $gray-color;
@@ -74,10 +74,16 @@
   }
 }
 
+@media screen and (max-width: 879px) {
+  .container > .container_menu {
+    margin: 3.1rem -2rem 0 0;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .container {
     .containerMenuicon {
-      margin: -2rem -.3rem 0 0;
+      margin: -1.4rem -.5rem 0 0;
       width: 1rem;
 
       .containerMenuiconDot {
@@ -87,7 +93,7 @@
     }
 
     .container_menu {
-      margin: 1.5rem -.5rem 0 0;
+      margin: 2.4rem -.8rem 0 0;
 
       .container_menuButton {
         height: 3.5rem;
