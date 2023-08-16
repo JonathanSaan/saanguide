@@ -6,6 +6,8 @@
   border-radius: 1rem;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: none;
   padding: 2vw 3rem;
@@ -22,7 +24,12 @@
   }
 
   .container_form {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     min-height: 26.5rem;
     height: 22vw;
@@ -71,6 +78,8 @@
 
       &:focus {
         background-color: $secondary-blue-color;
+        -webkit-transition: 300ms;
+        -o-transition: 300ms;
         transition: 300ms;
       }
     }

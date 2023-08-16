@@ -7,12 +7,21 @@
   position: relative;
 
   .AccessDenied {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 48%;
     left: 50%;
+    -webkit-transform: translate(-48%, -50%);
+    -ms-transform: translate(-48%, -50%);
     transform: translate(-48%, -50%);
     color: $white-color;
 
@@ -25,7 +34,12 @@
   }
 
   .publish_edit_container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     background-color: $gray-color;
     border-radius: .5rem;
@@ -61,8 +75,15 @@
     }
     
     .publish_edit_containerInput_image {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
       flex-direction: column;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
       justify-content: space-between;
       color: $white-color;
       margin: 1rem 0 2.5rem 0;
@@ -98,6 +119,8 @@
 
         &:hover {
           background-color: $secondary-blue-color;
+          -webkit-transition: 300ms;
+          -o-transition: 300ms;
           transition: 300ms;
         }
       }
@@ -123,6 +146,8 @@
       
       &:hover {
         background-color: $secondary-blue-color;
+        -webkit-transition: 300ms;
+        -o-transition: 300ms;
         transition: 300ms;
       }
     }

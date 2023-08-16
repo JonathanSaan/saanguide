@@ -11,13 +11,19 @@
     padding: 1rem 0;
     
     .home_containerNofound {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
       position: absolute;
       color: $white-color;
       white-space: nowrap;
       top: 47%;
       left: 50%;
+      -webkit-transform: translate(-47%, -50%);
+      -ms-transform: translate(-47%, -50%);
       transform: translate(-47%, -50%);
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
       justify-content: center;
       font-size: 2rem;
     }
@@ -51,7 +57,11 @@
       }
 
       .home_container_card_details {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
         justify-content: space-between;
         margin: 1rem 0 0 0;
         padding: 0 0 2.5rem 0;
