@@ -35,7 +35,9 @@
     height: 22vw;
 
     .container_formInput {
-      border: 1px solid $white-color;
+      background-color: $black-color;
+      color: $white-color;
+      border: 1px solid $secondary-gray-color;
       border-radius: .5rem;
       outline: none;
       font-size: .8rem;
@@ -76,11 +78,16 @@
       height: 2vw;
       width: auto;
 
-      &:focus {
+      &:hover {
         background-color: $secondary-blue-color;
         -webkit-transition: 300ms;
         -o-transition: 300ms;
         transition: 300ms;
+        
+        &:active {
+          -webkit-filter: Brightness(.6);
+          filter: Brightness(.6);
+        }
       }
     }
   }
