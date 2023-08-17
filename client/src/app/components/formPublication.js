@@ -3,17 +3,26 @@
 import Image from "next/image";
 import { useRef } from "react";
 
-import JoditEditor from "jodit-react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import FileBase64 from "react-file-base64";
 
 import styles from "../styles/publish_edit.module.scss";
 
 const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPhotoBase64Change, coverPhoto, setCoverPhoto, description, handleDescriptionUpdate, label }) => {
-  const editor = useRef(null);
-  
-  const config = {
-    readonly: false,
-    height: 400
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
   };
   
   return (
@@ -37,13 +46,11 @@ const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPh
           </div>
         )}
       </div>
-      <JoditEditor
-        ref={editor}
+      <ReactQuill
         value={description}
-        config={config}
-        tabIndex={1}
-        onBlur={handleDescriptionUpdate}
-        onChange={newContent => {}}
+        theme="snow"
+        onChange={handleDescriptionUpdate}
+        modules={modules} 
       />
       <button className={styles.publish_edit_containerButton} disabled={!title || !coverPhoto || !description}>{label}</button>
     </form>
