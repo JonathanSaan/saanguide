@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import getAllPosts from "./api/getAllPosts";
 import Header from "./components/header";
+import CookieConsent from "./components/cookieConsent";
 import PostCard from "./components/postCard";
 import Footer from "./components/footer";
 import styles from "./styles/home.module.scss";
@@ -40,6 +41,7 @@ const Home = () => {
         )}
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 };

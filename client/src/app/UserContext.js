@@ -7,9 +7,10 @@ const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const userString = Cookies.get("user");
+  const [showConsent, setShowConsent] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [isAdmin, setIsAdmin] = useState();
-
+  
   useEffect(() => {
     const user = typeof userString !== "undefined" ? JSON.parse(userString) : null;
     setIsLoggedIn(user);
@@ -17,10 +18,13 @@ const UserProvider = ({ children }) => {
     if (user && user.isAdmin !== undefined) {
       setIsAdmin(user.isAdmin);
     }
+    
+    const cookieConsent = Cookies.get("showConsent");
+    setShowConsent(cookieConsent !== "false");
   }, [userString]);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin }}>
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, showConsent, setShowConsent }}>
       {children}
     </UserContext.Provider>
   );

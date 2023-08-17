@@ -8,6 +8,7 @@ import getPost from "../api/getPost";
 import Header from "../components/header";
 import ModifyPublication from "../components/modifyPublication";
 import Comments from "../components/comment";
+import CookieConsent from "../components/cookieConsent";
 import Footer from "../components/footer";
 import styles from "../styles/post.module.scss";
 
@@ -71,6 +72,7 @@ const Post = async ({ params }) => {
           <Comments slug={params.slug} />
         </article>
       </main>
+      <CookieConsent />
       <Footer />
     </div>
   );

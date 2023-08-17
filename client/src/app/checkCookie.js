@@ -20,7 +20,7 @@ const CheckCookie = ({ children }) => {
     return <Loading />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default CheckCookie;
