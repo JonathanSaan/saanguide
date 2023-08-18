@@ -17,6 +17,6 @@ export default async function updatePublication(data) {
     
     return response.data;
   } catch (error) {
-    console.log(`Error updating publication: ${error.message}`);
+    return { error: true, message: error.response.data.message };
   }
 }

@@ -16,6 +16,7 @@ const Update = () => {
   const searchParams = useSearchParams();
   const slugUrl = searchParams.get("slug");
   const { isLoggedIn, isAdmin } = useContext(UserContext);
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
   const [description, setDescription] = useState("");
@@ -69,7 +70,13 @@ const Update = () => {
       banner: coverPhoto
     });
 
+    if (response.error) {
+      document.body.style.cursor = "default";
+      return setError(response.message);
+    }
+
     document.body.style.cursor = "default";
+    setError("");
     router.push("/");
   };
   
@@ -77,6 +84,11 @@ const Update = () => {
     <div className={styles.publish_edit}>
       <Header />
       <main className={styles.publish_edit_container}>
+        {error && (
+          <p className={styles.publish_edit_containerErrorMessage}>
+            {error}
+          </p>
+        )}
         <h1 className={styles.publish_edit_containerTitle}>Edit publication</h1>
         <FormPublication
           handleSubmit={handleSubmit}

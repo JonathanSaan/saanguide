@@ -122,6 +122,11 @@
           -webkit-transition: 300ms;
           -o-transition: 300ms;
           transition: 300ms;
+
+          &:active {
+            -webkit-filter: Brightness(.6);
+            filter: Brightness(.6);
+          }
         }
       }
     }
@@ -148,6 +153,11 @@
         -webkit-transition: 300ms;
         -o-transition: 300ms;
         transition: 300ms;
+        
+        &:active {
+          -webkit-filter: Brightness(.6);
+          filter: Brightness(.6);
+        }
       }
     }
   }
