@@ -21,6 +21,7 @@ const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPh
         { indent: "+1" },
       ],
       ["link", "image"],
+      [{ color: [] }],
       ["clean"],
     ],
   };
