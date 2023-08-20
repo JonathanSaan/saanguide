@@ -63,7 +63,7 @@
         margin: 0 0 2rem 0;
       }
       
-      .post_container_comments_addcomment {
+      .post_container_comments_addcomment, .post_container_comments_replycomment {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -74,7 +74,7 @@
         margin: 0 0 3rem 0;
         width: 100%;
 
-        .post_container_comments_addcommentTextarea {
+        .post_container_comments_addcommentTextarea, .post_container_comments_replycommentTextarea {
           border-radius: .5rem;
           background-color: $black-color;
           caret-color: $white-color;
@@ -91,8 +91,11 @@
             border: 1px solid $blue-color;
           }
         }
+        .post_container_comments_replycommentTextarea {
+          margin: 1rem 0 2rem 0;
+        }
 
-        .post_container_comments_addcommentButton {
+        .post_container_comments_addcommentButton, .post_container_comments_replycommentButton {
           cursor: pointer;
           border: none;
           outline: none;
@@ -100,16 +103,25 @@
           background-color: $blue-color;
           color: $white-color;
           font-size: 1rem;
-          padding: 1rem 2rem;
           margin: 0 0 0 auto;
+          padding: 1rem 2rem;
+          width: 8rem;
 
           &:hover {
             background-color: $secondary-blue-color;
             -webkit-transition: 300ms;
             -o-transition: 300ms;
             transition: 300ms;
+            
+            &:active {
+              -webkit-filter: Brightness(.6);
+              filter: Brightness(.6);
+            }
           }
         }
+      }
+      .post_container_comments_replycomment {
+        margin: 1rem 0 3rem 0;
       }
 
       .post_container_commentsNotLoggedInMessage {
@@ -123,9 +135,9 @@
       }
 
       .post_container_comments_comment {
-        margin: 2rem 0 2.5rem 0;
+        margin: 2rem 0;
 
-        .post_container_comments_commentHeader {
+        .post_container_comments_commentHeader, .post_container_comments_comment_replyHeader {
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
@@ -133,21 +145,22 @@
           -ms-flex-align: center;
           align-items: center;
 
-          .post_container_comments_commentUsername {
+          .post_container_comments_commentUsername, .post_container_comments_comment_replyUsername {
             font-size: 1.5rem;
+            cursor: text;
             font-weight: bold;
             line-height: 1;
             margin: 0 .6rem 0 0;
           }
 
-          .post_container_comments_commentTime {
+          .post_container_comments_commentTime, .post_container_comments_comment_replyTime {
             color: $secondary-gray-color;
             font-size: 1rem;
             margin: .2rem auto 0 0;
             line-height: 1;
           }
 
-          .post_container_comments_commentDelete {
+          .post_container_comments_commentDelete, .post_container_comments_comment_replyDelete {
             cursor: pointer;
             outline: none;
             border: none;
@@ -171,10 +184,59 @@
           }
         }
 
-        .post_container_comments_commentByUser {
+        .post_container_comments_commentByUser, .post_container_comments_comment_replyByUser {
           word-wrap: break-word;
           padding: 0 3rem 0 0;
-          margin: .6rem 0 0 .7rem;
+          margin: .6rem 0 1rem .7rem;
+        }
+
+        .post_container_comments_commentActions, .post_container_comments_comment_replyActions {
+          display: flex;
+          align-items: center;
+          margin: 1rem 0 0 0;
+
+          .post_container_comments_commentActionsButton, .post_container_comments_comment_replyActionsButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: 100%;
+            padding: .4rem;
+            background-color: transparent;
+            color: $white-color;
+
+            &:hover {
+              background-color: $black-color;
+            }
+            &:active, &.blue {
+              color: $blue-color;
+            }
+            
+          }
+
+          .post_container_comments_commentActionsLabel, .post_container_comments_comment_replyActionsLabel {
+            font-size: 1rem;
+            margin: 0 1rem 0 .4rem;
+          }
+          
+          .post_container_comments_commentActionsReply, .post_container_comments_comment_replyActionsReplay {
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1rem;
+            margin: 0 0 0 1rem;
+            color: $white-color;
+
+            &:hover {
+              color: $blue-color;
+            }
+          }
+        }
+
+        .post_container_comments_comment_reply {
+          margin: 2rem 0 1rem 2.3rem;
         }
       }
     }
@@ -215,12 +277,12 @@
         .post_container_comments_addcomment {
           margin: 0 0 1rem 0;
           
-          .post_container_comments_addcommentTextarea {
+          .post_container_comments_addcommentTextarea, .post_container_comments_replycommentTextarea {
             margin: 0 0 1rem 0;
             padding: 1.5rem;
           }
 
-          .post_container_comments_addcommentButton {
+          .post_container_comments_addcommentButton, .post_container_comments_replycommentButton {
             padding: 1rem;
           }
         }
