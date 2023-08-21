@@ -14,13 +14,9 @@ const port = process.env.PORT || 8000;
 connectDatabase();
 
 app.use(cors({ 
-  origin: "*",
-  credentials: true
-}));
-/*app.use(cors({ 
   origin: process.env.SERVER_FRONT_URL,
   credentials: true
-}));*/
+}));
 
 app.use(express.json());
 app.use("/", postsRouter);
