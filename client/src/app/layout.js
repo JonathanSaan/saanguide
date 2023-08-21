@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics";
+import { Analytics } from "@vercel/analytics/react";
 
 import { UserProvider } from "./UserContext.js";
 import CheckCookie from "./checkCookie";
