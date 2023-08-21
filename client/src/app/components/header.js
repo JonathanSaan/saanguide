@@ -124,7 +124,7 @@ const Header = () => {
           handleRemoveBackgroundClick={handleRemoveBackgroundClick} 
         />
       )}
-      <CookieConsent />
+      <Analytics debug={false} />
     </>
   );
 };
