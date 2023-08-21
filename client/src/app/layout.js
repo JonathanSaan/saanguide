@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics";
+
 import { UserProvider } from "./UserContext.js";
 import CheckCookie from "./checkCookie";
 import "./styles/globals.scss";
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body suppressHydrationWarning={true}>
           <CheckCookie>{children}</CheckCookie>
+          <Analytics debug={false} />
         </body>
       </html>
     </UserProvider>
