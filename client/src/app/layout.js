@@ -1,4 +1,4 @@
-import { Roboto } from "next/font/google"
+import { Roboto } from "next/font/google";
 
 import { UserProvider } from "./UserContext.js";
 import CheckCookie from "./checkCookie";
@@ -15,9 +15,7 @@ export const metadata = {
 
 const roboto = Roboto({
   weight: ["300", "400"],
-  style: ["normal"],
   subsets: ["latin"],
-  display: "swap",
 })
 
 export default function RootLayout({ children }) {
