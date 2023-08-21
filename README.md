@@ -9,7 +9,7 @@
 ## Register Page
 ![img](https://github.com/JonathanSaan/saanguide/blob/0352c45145c72df730d6c0ef7dad6890800bcd04/screenshots/screenshot3.jpg)
 
-## Publish Page(Administrators only)
+## Publish Page (Administrators only)
 ![img](https://github.com/JonathanSaan/saanguide/blob/0352c45145c72df730d6c0ef7dad6890800bcd04/screenshots/screenshot4.jpg)
 
 ## Demo
