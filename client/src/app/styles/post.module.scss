@@ -54,13 +54,19 @@
     
     .post_container_description {
       margin: 0 0 20% 0;
+      font-size: 1.3rem;
     }
 
     .post_container_comments {
       margin: 7rem 0 0 0;
       
       .post_container_commentsHeader {
-        margin: 0 0 2rem 0;
+        margin: 0 0 1.5rem 0;
+        
+        .post_container_commentsAccountant {
+          cursor: text;
+          font-size: 1.3rem;
+        }
       }
       
       .post_container_comments_addcomment, .post_container_comments_replycomment {
@@ -136,7 +142,7 @@
 
       .post_container_comments_comment {
         margin: 2rem 0;
-
+		
         .post_container_comments_commentHeader, .post_container_comments_comment_replyHeader {
           display: -webkit-box;
           display: -ms-flexbox;
@@ -156,6 +162,7 @@
           .post_container_comments_commentTime, .post_container_comments_comment_replyTime {
             color: $secondary-gray-color;
             font-size: 1rem;
+            cursor: text;
             margin: .2rem auto 0 0;
             line-height: 1;
           }
@@ -185,19 +192,31 @@
         }
 
         .post_container_comments_commentByUser, .post_container_comments_comment_replyByUser {
+          cursor: text;
           word-wrap: break-word;
           padding: 0 3rem 0 0;
-          margin: .6rem 0 1rem .7rem;
+          font-size: 1.3rem;
+          margin: .6rem 0 1rem .8rem;
         }
 
         .post_container_comments_commentActions, .post_container_comments_comment_replyActions {
+          display: -webkit-box;
+          display: -ms-flexbox;
           display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
           align-items: center;
           margin: 1rem 0 0 0;
 
           .post_container_comments_commentActionsButton, .post_container_comments_comment_replyActionsButton {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
             cursor: pointer;
             border: none;
@@ -210,14 +229,15 @@
             &:hover {
               background-color: $black-color;
             }
+            
             &:active, &.blue {
               color: $blue-color;
             }
-            
           }
 
           .post_container_comments_commentActionsLabel, .post_container_comments_comment_replyActionsLabel {
             font-size: 1rem;
+            cursor: text;
             margin: 0 1rem 0 .4rem;
           }
           

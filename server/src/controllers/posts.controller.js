@@ -1,4 +1,4 @@
-import { createService, findAllService, findBySlugService, updateService, eraseService, addCommentService, deleteCommentService } from "../services/posts.service.js";
+import { createService, findAllService, findBySlugService, updateService, eraseService, addCommentService, addLikeToCommentService, addDislikeToCommentService, deleteCommentService, addReplyService, deleteReplyService, addLikeToReplyService, addDislikeToReplyService } from "../services/posts.service.js";
 
 export const create = async (req, res) => {
   try {
@@ -66,7 +66,7 @@ export const findBySlug = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      return res.status(400).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
     return res.send(post);
@@ -88,7 +88,7 @@ export const update = async (req, res) => {
     const post = await findBySlugService(slug);
     
     if (!post) {
-      return res.status(400).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
     
     if (!isAdmin) {
@@ -118,7 +118,7 @@ export const erase = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      return res.status(400).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
     if (!isAdmin) {
@@ -140,7 +140,7 @@ export const getAllCommentsBySlug = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      return res.status(404).json({ message: "Post not found" });
+      return res.status(404).send({ message: "Post not found" });
     }
 
     const allComments = post.comments;
@@ -169,6 +169,96 @@ export const addComment = async (req, res) => {
   }
 };
 
+export const addLikeToComment = async (req, res) => {
+  try {
+    const { slug, idComment } = req.params;
+    const username = req.username;
+
+    const post = await findBySlugService(slug);
+
+    if (!post) {
+      return res.status(404).send({ message: "Post not found." });
+    }
+
+    const commentLiked = await addLikeToCommentService(slug, idComment, username);
+
+    if (!commentLiked) {
+      return res.status(404).send({ message: "Comment not found." });
+    }
+    
+    res.send({ message: "Like added/removed successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+export const addDislikeToComment = async (req, res) => {
+  try {
+    const { slug, idComment } = req.params;
+    const username = req.username;
+
+    const post = await findBySlugService(slug);
+
+    if (!post) {
+      return res.status(404).send({ message: "Post not found." });
+    }
+
+    const commentDisliked = await addDislikeToCommentService(slug, idComment, username);
+
+    if (!commentDisliked) {
+      res.status(404).send({ message: "Comment not found." });
+    }
+
+    res.send({ message: "Dislike added/removed successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+export const addLikeToReply = async (req, res) => {
+  try {
+    const { slug, idComment, idReply } = req.params;
+    const username = req.username;
+    
+    const post = await findBySlugService(slug);
+
+    if (!post) {
+      return res.status(404).send({ message: "Post not found." });
+    }
+    
+    const replyLiked = await addLikeToReplyService(slug, idComment, idReply, username);
+
+    if (!replyLiked) {
+      return res.status(200).send({ message: "Reply not found." });
+    }
+    
+    res.send({ message: "Like added/removed successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+export const addDislikeToReply = async (req, res) => {
+  try {
+    const { slug, idComment, idReply } = req.params;
+    const username = req.username;
+
+    const post = await findBySlugService(slug);
+
+    if (!post) {
+      return res.status(404).send({ message: "Post not found." });
+    }
+    
+    const replyDisliked = await addDislikeToReplyService(slug, idComment, idReply, username);
+
+    if (!replyDisliked) {
+      res.status(404).send({ message: "Reply not found." });
+    }
+
+    res.send({ message: "Dislike added/removed successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 export const deleteComment = async (req, res) => {
   try {
     const { slug, idComment } = req.params;
@@ -180,7 +270,7 @@ export const deleteComment = async (req, res) => {
     const commentFinder = commentDeleted.comments.find(comment => comment.idComment === idComment);
     
     if (!commentFinder) {
-      return res.status(400).send({ message: "Comment not found" });
+      return res.status(404).send({ message: "Comment not found" });
     }
     
     if (commentFinder.username !== username && !isAdmin) {
@@ -188,6 +278,48 @@ export const deleteComment = async (req, res) => {
     }
 	
     res.send({ message: "Comment successfully removed!" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const addReply = async (req, res) => {
+  try {
+    const { slug, idComment } = req.params;
+    const username = req.username;
+    const { replyText } = req.body;
+
+    if (!replyText) {
+      return res.status(400).send({ message: "Write a reply to comment" });
+    }
+
+    await addReplyService(slug, idComment, replyText, username);
+
+    res.send({ message: "Reply added successfully!" });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export const deleteReply = async (req, res) => {
+  try {
+    const { slug, idComment, idReply } = req.params;
+    const username = req.username;
+    const isAdmin = req.isAdmin;
+
+    const replyDeleted = await deleteReplyService(slug, idComment, idReply, username);
+
+    const replyFinder = replyDeleted.comments.find((comment) => comment.replies.some((reply) => reply.idReply === idReply));
+
+    if (!replyFinder) {
+      return res.status(404).send({ message: "Reply not found" });
+    }
+
+    if (replyFinder.replies.username !== username && !isAdmin) {
+      return res.status(400).send({ message: "You can't delete this reply" });
+    }
+
+    res.send({ message: "Reply successfully removed!" });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

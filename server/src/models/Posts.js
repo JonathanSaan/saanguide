@@ -20,10 +20,38 @@ const PostsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  comments: {
-    type: Array,
-    require: true,
-  },
+  comments: [
+    {
+      idComment: String,
+      username: String,
+      comment: String,
+      likes: {
+        type: [String],
+        default: []
+      },
+      dislikes: {
+        type: [String],
+        default: []
+      },
+      createdAt: Date,
+      replies: [
+        {
+          idReply: String,
+          username: String,
+          replyText: String,
+          likes: {
+            type: [String],
+            default: []
+          },
+          dislikes: {
+            type: [String],
+            default: []
+          },
+          createdAt: Date,
+        },
+      ],
+    },
+  ],
 });
 
 const Posts = mongoose.model("Posts", PostsSchema);

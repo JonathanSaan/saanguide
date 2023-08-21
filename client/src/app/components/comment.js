@@ -3,10 +3,17 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 
 import { BsFillTrashFill } from "react-icons/bs";
+import { BiLike, BiDislike } from "react-icons/bi";
 
 import postComment from "../api/postComment";
+import postReply from "../api/postReply";
+import postLike from "../api/postLike";
+import postLikeReply from "../api/postLikeReply";
+import postDislike from "../api/postDislike";
+import postDislikeReply from "../api/postDislikeReply";
 import getAllComments from "../api/getAllComments";
 import deleteComment from "../api/deleteComment";
+import deleteReply from "../api/deleteReply";
 import ModalDelete from "./modalDelete";
 import Login from "./login";
 import Register from "./register";
@@ -21,7 +28,10 @@ const Comments = ({ slug }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const [allComments, setAllComments] = useState([]);
+  const [showReplyInput, setShowReplyInput] = useState(false);
+
   const [commentToDelete, setCommentToDelete] = useState(false);
+  const [replyToDelete, setReplyToDelete] = useState(false);
   
   const fetchComments = useCallback(async () => {
     const comments = await getAllComments(slug);
@@ -31,19 +41,78 @@ const Comments = ({ slug }) => {
     fetchComments();
   }, [fetchComments]);
   
+  const handleOpenReply = (comment) => {
+    if(!isLoggedIn) {
+      return handleFormClick("login");
+    }
+
+    setShowReplyInput(prevState => ({ ...prevState, [comment.idComment]: !prevState[comment.idComment] }));
+  };
+
+  const handleLikeClick = async (slug, idComment) => {
+    if(!isLoggedIn) {
+      return handleFormClick("login");
+    }
+
+    await postLike(slug, idComment);
+    fetchComments();
+  };
+  const handleDislikeClick = async (slug, idComment) => {
+    if(!isLoggedIn) {
+      return handleFormClick("login");
+    }
+
+    await postDislike(slug, idComment);
+    fetchComments();
+  };
+
+  const handleLikeReplyClick = async (slug, idComment, idReply) => {
+    if(!isLoggedIn) {
+      return handleFormClick("login");
+    }
+
+    await postLikeReply(slug, idComment, idReply);
+    fetchComments();
+  };
+  const handleDislikeReplyClick = async (slug, idComment, idReply) => {
+    if(!isLoggedIn) {
+      return handleFormClick("login");
+    }
+
+    await postDislikeReply(slug, idComment, idReply);
+    fetchComments();
+  };
+  
   const handleDeleteComment = (idComment) => {
     document.body.style.overflow = "hidden";
     setCommentToDelete(idComment);
+  };
+  const handleDeleteReply = (idReply) => {
+    document.body.style.overflow = "hidden";
+    setReplyToDelete(idReply);
   };
 
   const handleConfirmDeleteComment = async (idComment) => {
     document.body.style.overflow = "auto";
     document.body.style.cursor = "wait";
     await deleteComment({ slug, idComment });
-    setAllComments((prevComments) =>
-      prevComments.filter((comment) => comment.idComment !== idComment)
-    );
+    setAllComments((prevComments) => prevComments.filter((comment) => comment.idComment !== idComment));
     setCommentToDelete(false);
+    document.body.style.cursor = "default";
+  };
+  const handleConfirmDeleteReply = async (idComment, idReply) => {
+    document.body.style.overflow = "auto";
+    document.body.style.cursor = "wait";
+    await deleteReply({ slug, idComment, idReply });
+    setAllComments((prevComments) => {
+      const updatedComments = prevComments.map((comment) => {
+        const updatedReplies = comment.replies.filter((reply) => reply.idReply !== idReply);
+        return { ...comment, replies: updatedReplies };
+      });
+    
+      return updatedComments;
+    });
+    setReplyToDelete(false);
     document.body.style.cursor = "default";
   };
 
@@ -68,12 +137,15 @@ const Comments = ({ slug }) => {
     setShowLogin(false);
     setShowRegister(false);
     setCommentToDelete(false);
+    setReplyToDelete(false);
   };
 
   return (
     <div className={styles.post_container_comments}>
       <header className={styles.post_container_commentsHeader}>
-        <label>Comments ({allComments.length})</label>
+        <label className={styles.post_container_commentsAccountant}>
+          Comments ({allComments.length + allComments.reduce((total, comment) => total + (comment.replies ? comment.replies.length : 0), 0)})
+        </label>
       </header>
       {isLoggedIn ? (
         <AddComment slug={slug} fetchComments={fetchComments} />
@@ -114,7 +186,9 @@ const Comments = ({ slug }) => {
         const time = commentPostedTime(differenceInTime);
         
         const isOwner = isLoggedIn && isLoggedIn.username === comment.username || isAdmin;
-        
+        const userLiked = isLoggedIn && comment.likes.includes(isLoggedIn.username);
+        const userDisliked = isLoggedIn && comment.dislikes.includes(isLoggedIn.username);
+
         return (
           <div className={styles.post_container_comments_comment} key={comment.idComment}>
             <header className={styles.post_container_comments_commentHeader}>
@@ -138,6 +212,79 @@ const Comments = ({ slug }) => {
             <span>
               <p className={styles.post_container_comments_commentByUser}>{comment.comment}</p>
             </span>
+            <div className={styles.post_container_comments_commentActions}>
+              <button onClick={() => handleLikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userLiked ? styles.blue : ""}`}>
+                <BiLike size={23} />
+              </button>
+              <label className={styles.post_container_comments_commentActionsLabel}>{comment.likes.length}</label>
+              <button onClick={() => handleDislikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userDisliked ? styles.blue : ""}`}>
+                <BiDislike size={23} />
+              </button>
+              <label className={styles.post_container_comments_commentActionsLabel}>{comment.dislikes.length}</label>
+              <button 
+                className={styles.post_container_comments_commentActionsReply}
+                onClick={() => handleOpenReply(comment)}
+              >
+                Reply
+              </button>
+            </div>
+
+            {comment.replies && comment.replies.map((reply) => {
+              const createdAt = new Date(reply.createdAt);
+              const now = new Date();
+              const differenceInTime = now.getTime() - createdAt.getTime();
+              const time = commentPostedTime(differenceInTime);
+
+              const isOwner = isLoggedIn && isLoggedIn.username === reply.username || isAdmin;
+              const userLiked = isLoggedIn && reply.likes.includes(isLoggedIn.username);
+              const userDisliked = isLoggedIn && reply.dislikes.includes(isLoggedIn.username);
+
+              return (
+                <div className={styles.post_container_comments_comment_reply} key={reply.idReply}>
+                  <header className={styles.post_container_comments_comment_replyHeader}>
+                    <h4 className={styles.post_container_comments_comment_replyUsername}>{reply.username}</h4>
+                    <h5 className={styles.post_container_comments_comment_replyTime}>{time}</h5>
+                    {isOwner && (
+                      <>
+                        <button className={styles.post_container_comments_comment_replyDelete} onClick={(event) => handleDeleteReply(reply.idReply, event)}>
+                          <BsFillTrashFill size={20} />
+                        </button>
+                        <ModalDelete
+                          isOpen={replyToDelete === reply.idReply}
+                          onCancel={handleRemoveBackgroundClick}
+                          onConfirm={() => handleConfirmDeleteReply(comment.idComment, reply.idReply)}
+                        >
+                          Are you sure you want to delete this reply?
+                        </ModalDelete>
+                      </>
+                    )}
+                  </header>
+                  <span>
+                    <p className={styles.post_container_comments_comment_replyByUser}>{reply.replyText}</p>
+                  </span>
+                  <div className={styles.post_container_comments_comment_replyActions}>
+                    <button onClick={() => handleLikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userLiked ? styles.blue : ""}`}>
+                      <BiLike size={23} />
+                    </button>
+                    <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.likes.length}</label>
+                    <button onClick={() => handleDislikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userDisliked ? styles.blue : ""}`}>
+                      <BiDislike size={23} />
+                    </button>
+                    <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.dislikes.length}</label>
+                    <button 
+                      className={styles.post_container_comments_comment_replyActionsReplay}
+                      onClick={() => handleOpenReply(comment)}
+                    >
+                      Reply
+                    </button>
+                  </div>
+                </div>
+              )}
+            )}
+
+            {showReplyInput[comment.idComment] && isLoggedIn && (
+              <AddReply slug={slug} idComment={comment.idComment} fetchComments={fetchComments} />
+            )}
           </div>
         );
       })}
@@ -169,12 +316,46 @@ const AddComment = ({ slug, fetchComments }) => {
         placeholder="Add a comment..."
         onChange={(event) => setCommentText(event.target.value)}
         value={commentText}
-       />
+      />
       <button 
         className={styles.post_container_comments_addcommentButton} 
         type="submit" 
       >
         Comment
+      </button>
+    </form>
+  );
+};
+const AddReply = ({ slug, idComment, fetchComments }) => {
+  const [replyText, setReplyText] = useState("");
+  
+  const handleReplySubmit = async (event) => {
+    event.preventDefault();
+
+    if (replyText.trim() === "") {
+      return;
+    }
+
+    document.body.style.cursor = "wait";
+    await postReply({ slug, idComment, replyText });
+    setReplyText("");
+    fetchComments();
+    document.body.style.cursor = "default";
+  };
+  
+  return (
+    <form className={styles.post_container_comments_replycomment} onSubmit={handleReplySubmit}>
+      <textarea
+        className={styles.post_container_comments_replycommentTextarea}
+        placeholder="Add a comment..."
+        onChange={(event) => setReplyText(event.target.value)}
+        value={replyText}
+      />
+      <button 
+        className={styles.post_container_comments_replycommentButton} 
+        type="submit" 
+      >
+        Reply
       </button>
     </form>
   );
