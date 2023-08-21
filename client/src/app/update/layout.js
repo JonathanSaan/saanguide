@@ -12,13 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <html lang="en">
-        <body suppressHydrationWarning={true}>
-          <Suspense fallback={null}>
-            <CheckCookie>{children}</CheckCookie>
-          </Suspense>
-        </body>
-      </html>
+      <Suspense fallback={null}>
+        <CheckCookie>{children}</CheckCookie>
+      </Suspense>
     </UserProvider>
   );
 }

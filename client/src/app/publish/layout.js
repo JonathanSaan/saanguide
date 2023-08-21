@@ -10,11 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <html lang="en">
-        <body suppressHydrationWarning={true}>
-          <CheckCookie>{children}</CheckCookie>
-        </body>
-      </html>
+      <CheckCookie>{children}</CheckCookie>
     </UserProvider>
   );
 }
