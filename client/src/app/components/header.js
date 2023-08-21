@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
+import { Analytics } from "@vercel/analytics/react";
 
 import Login from "./login";
 import { UserContext } from "../UserContext";
@@ -123,6 +124,7 @@ const Header = () => {
           handleRemoveBackgroundClick={handleRemoveBackgroundClick} 
         />
       )}
+      <CookieConsent />
     </>
   );
 };
