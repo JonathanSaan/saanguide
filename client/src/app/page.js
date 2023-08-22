@@ -5,18 +5,25 @@ import { useState, useEffect } from "react";
 import getAllPosts from "./api/getAllPosts";
 import Header from "./components/header";
 import CookieConsent from "./components/cookieConsent";
+import Loading from "./loading";
 import PostCard from "./components/postCard";
 import Footer from "./components/footer";
 import styles from "./styles/home.module.scss";
 
 const Home = () => {
   const [posts, setPosts] = useState();
+  const [loading, setLoading] = useState(true);
 
   const fetchPosts = async () => {
     const postsData = await getAllPosts();
     
     if(postsData) {
       setPosts(postsData.results);
+      setLoading(false);
+    }
+    
+    if (loading) {
+      return <Loading />;
     }
   };
 
