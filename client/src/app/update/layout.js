@@ -10,6 +10,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  if (typeof window === "undefined") return;
+  
   return (
     <UserProvider>
       <Suspense fallback={null}>
