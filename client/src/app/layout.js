@@ -9,12 +9,13 @@ export const metadata = {
     icon: "/icon.png",
   },
   title: "Saan's Guidebook",
-  keywords: ["Blog", "fitness", "information"],
+  keywords: ["Blog", "fitness", "information", "Saan's Guidebook", "saanguide"],
   description: "A blog about interesting things of which I have a certain domain.",
 };
 
 const roboto_condensed = Roboto_Condensed({
   weight: ["300", "400"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 })
@@ -22,7 +23,7 @@ const roboto_condensed = Roboto_Condensed({
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <html lang="en">
+      <html lang="en" className={roboto_condensed.className}>
         <body suppressHydrationWarning={true}>
           <CheckCookie>{children}</CheckCookie>
         </body>
