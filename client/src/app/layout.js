@@ -1,4 +1,4 @@
-import { Roboto_Condensed } from "next/font/google";
+import localFont from "next/font/local";
 
 import { UserProvider } from "./UserContext.js";
 import CheckCookie from "./checkCookie";
@@ -13,18 +13,13 @@ export const metadata = {
   description: "A blog about interesting things of which I have a certain domain.",
 };
 
-const roboto_condensed = Roboto_Condensed({
-  weight: ["300", "400"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  display: "swap",
-})
+const myFont = localFont({ src: "../../public/fonts/RobotoCondensed-Regular.ttf" });
 
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <html lang="en" className={roboto_condensed.className}>
-        <body suppressHydrationWarning={true}>
+      <html lang="en">
+        <body suppressHydrationWarning={true} className={myFont.className}>
           <CheckCookie>{children}</CheckCookie>
         </body>
       </html>
