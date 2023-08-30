@@ -3,6 +3,8 @@
 import { createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
+import Loading from "./loading";
+
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
@@ -21,6 +23,10 @@ const UserProvider = ({ children }) => {
     
     const cookieConsent = Cookies.get("showConsent");
     setShowConsent(cookieConsent !== "false");
+    
+    if (typeof window === "undefined") {
+      return <Loading />;
+    }
   }, [userString]);
 
   return (
