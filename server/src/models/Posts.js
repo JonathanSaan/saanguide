@@ -52,6 +52,8 @@ const PostsSchema = new mongoose.Schema({
       ],
     },
   ],
+}, {
+  timestamps: true,
 });
 
 const Posts = mongoose.model("Posts", PostsSchema);
