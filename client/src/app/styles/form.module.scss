@@ -37,12 +37,13 @@
     .container_formInput {
       background-color: $black-color;
       color: $white-color;
+      caret-color: $blue-color;
       border: 1px solid $secondary-gray-color;
       border-radius: .5rem;
       outline: none;
       font-size: .8rem;
       margin: 0 0 1vw 0;
-      padding: 0 0 0 1vw;
+      padding: 0 1vw;
       min-height: 3.5rem;
       height: 2vw;
       width: auto;
