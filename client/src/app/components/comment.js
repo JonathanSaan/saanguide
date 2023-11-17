@@ -4,6 +4,7 @@ import { useContext, useEffect, useState, useCallback } from "react";
 
 import { BsFillTrashFill } from "react-icons/bs";
 import { BiLike, BiDislike } from "react-icons/bi";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import postComment from "../api/postComment";
 import postReply from "../api/postReply";
@@ -27,6 +28,7 @@ const Comments = ({ slug }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [allComments, setAllComments] = useState([]);
   const [showReplyInput, setShowReplyInput] = useState(false);
 
@@ -34,8 +36,10 @@ const Comments = ({ slug }) => {
   const [replyToDelete, setReplyToDelete] = useState(false);
   
   const fetchComments = useCallback(async () => {
+    setIsLoading(true);
     const comments = await getAllComments(slug);
     setAllComments(comments);
+    setIsLoading(false);
   }, [slug]);
   useEffect(() => {
     fetchComments();
@@ -179,115 +183,124 @@ const Comments = ({ slug }) => {
         </>
       )}
 
-      {allComments && allComments.map((comment) => {
-        const createdAt = new Date(comment.createdAt);
-        const today = new Date();
-        const differenceInTime = today.getTime() - createdAt.getTime();
-        const time = commentPostedTime(differenceInTime);
-        
-        const isOwner = isLoggedIn && isLoggedIn.username === comment.username || isAdmin;
-        const userLiked = isLoggedIn && comment.likes.includes(isLoggedIn.username);
-        const userDisliked = isLoggedIn && comment.dislikes.includes(isLoggedIn.username);
+      {isLoading ? (
+        <div className={styles.post_container_comments_loading}>
+          <ClipLoader color="#fafaf9" size={30} />
+        </div>
+      ) : (
+        <>
+          {allComments && allComments.map((comment) => {
+            const createdAt = new Date(comment.createdAt);
+            const today = new Date();
+            const differenceInTime = today.getTime() - createdAt.getTime();
+            const time = commentPostedTime(differenceInTime);
+            
+            const isOwner = isLoggedIn && isLoggedIn.username === comment.username || isAdmin;
+            const userLiked = isLoggedIn && comment.likes.includes(isLoggedIn.username);
+            const userDisliked = isLoggedIn && comment.dislikes.includes(isLoggedIn.username);
 
-        return (
-          <div className={styles.post_container_comments_comment} key={comment.idComment}>
-            <header className={styles.post_container_comments_commentHeader}>
-              <h4 className={styles.post_container_comments_commentUsername}>{comment.username}</h4>
-              <h5 className={styles.post_container_comments_commentTime}>{time}</h5>
-              {isOwner && (
-                <>
-                  <button className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>
-                    <BsFillTrashFill size={20} />
+            return (
+              <div className={styles.post_container_comments_comment} key={comment.idComment}>
+                <header className={styles.post_container_comments_commentHeader}>
+                  <h4 className={styles.post_container_comments_commentUsername}>{comment.username}</h4>
+                  <h5 className={styles.post_container_comments_commentTime}>{time}</h5>
+                  {isOwner && (
+                    <>
+                      <button className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>
+                        <BsFillTrashFill size={20} />
+                      </button>
+                      <ModalDelete
+                        isOpen={commentToDelete === comment.idComment}
+                        onCancel={handleRemoveBackgroundClick}
+                        onConfirm={() => handleConfirmDeleteComment(comment.idComment)}
+                      >
+                        Are you sure you want to delete this comment?
+                      </ModalDelete>
+                    </>
+                  )}
+                </header>
+                <span>
+                  <p className={styles.post_container_comments_commentByUser}>{comment.comment}</p>
+                </span>
+                <div className={styles.post_container_comments_commentActions}>
+                  <button onClick={() => handleLikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userLiked ? styles.blue : ""}`}>
+                    <BiLike size={23} />
                   </button>
-                  <ModalDelete
-                    isOpen={commentToDelete === comment.idComment}
-                    onCancel={handleRemoveBackgroundClick}
-                    onConfirm={() => handleConfirmDeleteComment(comment.idComment)}
+                  <label className={styles.post_container_comments_commentActionsLabel}>{comment.likes.length}</label>
+                  <button onClick={() => handleDislikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userDisliked ? styles.blue : ""}`}>
+                    <BiDislike size={23} />
+                  </button>
+                  <label className={styles.post_container_comments_commentActionsLabel}>{comment.dislikes.length}</label>
+                  <button 
+                    className={styles.post_container_comments_commentActionsReply}
+                    onClick={() => handleOpenReply(comment)}
                   >
-                    Are you sure you want to delete this comment?
-                  </ModalDelete>
-                </>
-              )}
-            </header>
-            <span>
-              <p className={styles.post_container_comments_commentByUser}>{comment.comment}</p>
-            </span>
-            <div className={styles.post_container_comments_commentActions}>
-              <button onClick={() => handleLikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userLiked ? styles.blue : ""}`}>
-                <BiLike size={23} />
-              </button>
-              <label className={styles.post_container_comments_commentActionsLabel}>{comment.likes.length}</label>
-              <button onClick={() => handleDislikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userDisliked ? styles.blue : ""}`}>
-                <BiDislike size={23} />
-              </button>
-              <label className={styles.post_container_comments_commentActionsLabel}>{comment.dislikes.length}</label>
-              <button 
-                className={styles.post_container_comments_commentActionsReply}
-                onClick={() => handleOpenReply(comment)}
-              >
-                Reply
-              </button>
-            </div>
-
-            {comment.replies && comment.replies.map((reply) => {
-              const createdAt = new Date(reply.createdAt);
-              const now = new Date();
-              const differenceInTime = now.getTime() - createdAt.getTime();
-              const time = commentPostedTime(differenceInTime);
-
-              const isOwner = isLoggedIn && isLoggedIn.username === reply.username || isAdmin;
-              const userLiked = isLoggedIn && reply.likes.includes(isLoggedIn.username);
-              const userDisliked = isLoggedIn && reply.dislikes.includes(isLoggedIn.username);
-
-              return (
-                <div className={styles.post_container_comments_comment_reply} key={reply.idReply}>
-                  <header className={styles.post_container_comments_comment_replyHeader}>
-                    <h4 className={styles.post_container_comments_comment_replyUsername}>{reply.username}</h4>
-                    <h5 className={styles.post_container_comments_comment_replyTime}>{time}</h5>
-                    {isOwner && (
-                      <>
-                        <button className={styles.post_container_comments_comment_replyDelete} onClick={(event) => handleDeleteReply(reply.idReply, event)}>
-                          <BsFillTrashFill size={20} />
-                        </button>
-                        <ModalDelete
-                          isOpen={replyToDelete === reply.idReply}
-                          onCancel={handleRemoveBackgroundClick}
-                          onConfirm={() => handleConfirmDeleteReply(comment.idComment, reply.idReply)}
-                        >
-                          Are you sure you want to delete this reply?
-                        </ModalDelete>
-                      </>
-                    )}
-                  </header>
-                  <span>
-                    <p className={styles.post_container_comments_comment_replyByUser}>{reply.replyText}</p>
-                  </span>
-                  <div className={styles.post_container_comments_comment_replyActions}>
-                    <button onClick={() => handleLikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userLiked ? styles.blue : ""}`}>
-                      <BiLike size={23} />
-                    </button>
-                    <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.likes.length}</label>
-                    <button onClick={() => handleDislikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userDisliked ? styles.blue : ""}`}>
-                      <BiDislike size={23} />
-                    </button>
-                    <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.dislikes.length}</label>
-                    <button 
-                      className={styles.post_container_comments_comment_replyActionsReplay}
-                      onClick={() => handleOpenReply(comment)}
-                    >
-                      Reply
-                    </button>
-                  </div>
+                    Reply
+                  </button>
                 </div>
-              )}
-            )}
 
-            {showReplyInput[comment.idComment] && isLoggedIn && (
-              <AddReply slug={slug} idComment={comment.idComment} fetchComments={fetchComments} />
-            )}
-          </div>
-        );
-      })}
+                {comment.replies && comment.replies.map((reply) => {
+                  const createdAt = new Date(reply.createdAt);
+                  const now = new Date();
+                  const differenceInTime = now.getTime() - createdAt.getTime();
+                  const time = commentPostedTime(differenceInTime);
+
+                  const isOwner = isLoggedIn && isLoggedIn.username === reply.username || isAdmin;
+                  const userLiked = isLoggedIn && reply.likes.includes(isLoggedIn.username);
+                  const userDisliked = isLoggedIn && reply.dislikes.includes(isLoggedIn.username);
+
+                  return (
+                    <div className={styles.post_container_comments_comment_reply} key={reply.idReply}>
+                      <header className={styles.post_container_comments_comment_replyHeader}>
+                        <h4 className={styles.post_container_comments_comment_replyUsername}>{reply.username}</h4>
+                        <h5 className={styles.post_container_comments_comment_replyTime}>{time}</h5>
+                        {isOwner && (
+                          <>
+                            <button className={styles.post_container_comments_comment_replyDelete} onClick={(event) => handleDeleteReply(reply.idReply, event)}>
+                              <BsFillTrashFill size={20} />
+                            </button>
+                            <ModalDelete
+                              isOpen={replyToDelete === reply.idReply}
+                              onCancel={handleRemoveBackgroundClick}
+                              onConfirm={() => handleConfirmDeleteReply(comment.idComment, reply.idReply)}
+                            >
+                              Are you sure you want to delete this reply?
+                            </ModalDelete>
+                          </>
+                        )}
+                      </header>
+                      <span>
+                        <p className={styles.post_container_comments_comment_replyByUser}>{reply.replyText}</p>
+                      </span>
+                      <div className={styles.post_container_comments_comment_replyActions}>
+                        <button onClick={() => handleLikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userLiked ? styles.blue : ""}`}>
+                          <BiLike size={23} />
+                        </button>
+                        <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.likes.length}</label>
+                        <button onClick={() => handleDislikeReplyClick(slug, comment.idComment, reply.idReply)} className={`${styles.post_container_comments_comment_replyActionsButton} ${userDisliked ? styles.blue : ""}`}>
+                          <BiDislike size={23} />
+                        </button>
+                        <label className={styles.post_container_comments_comment_replyActionsLabel}>{reply.dislikes.length}</label>
+                        <button 
+                          className={styles.post_container_comments_comment_replyActionsReplay}
+                          onClick={() => handleOpenReply(comment)}
+                        >
+                          Reply
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                )}
+
+                {showReplyInput[comment.idComment] && isLoggedIn && (
+                  <AddReply slug={slug} idComment={comment.idComment} fetchComments={fetchComments} />
+                )}
+              </div>
+            );
+          })}
+        </>
+      )}
+      
     </div>
   );
 };
