@@ -131,8 +131,8 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         />
         {useFormErrorMessage(errors, "repeatPassword")}
 
-        <button disabled={loading} className={styles.container_formButton}>
-          {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "register"}
+        <button disabled={!title || !coverPhoto || !description || loading} className={styles.container_formButton}>
+          {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "Register"}
         </button>
       </form>
 
@@ -141,7 +141,8 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         <span
           className={styles.containerTextLink}
           onClick={() => handleFormClick("login")}
-        > Login
+        >
+          Login
         </span>
       </p>
     </dialog>
