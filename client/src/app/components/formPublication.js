@@ -54,7 +54,7 @@ const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPh
         onChange={handleDescriptionUpdate}
         modules={modules} 
       />
-      <button className={styles.publish_edit_containerButton} disabled={!title || !coverPhoto || !description}>
+      <button className={styles.publish_edit_containerButton} disabled={loading}>
         {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : label}
       </button>
     </form>
