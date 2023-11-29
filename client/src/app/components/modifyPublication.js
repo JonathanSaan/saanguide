@@ -18,6 +18,7 @@ const ModifyPublication = ({ slug }) => {
   const router = useRouter();
   const { isAdmin } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [publicationToDelete, setPublicationToDelete] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const menuRef = useRef(null);
@@ -40,10 +41,10 @@ const ModifyPublication = ({ slug }) => {
   };
   const handleConfirmDeletePublication = async () => {
     document.body.style.overflow = "auto";
-    document.body.style.cursor = "wait";
+    setLoading(true);
     await deletePublication(slug);
     handleRemoveBackgroundClick();
-    document.body.style.cursor = "default";
+    setLoading(false);
     router.push("/");
   };
   
@@ -81,6 +82,7 @@ const ModifyPublication = ({ slug }) => {
               isOpen={publicationToDelete === slug}
               onCancel={handleRemoveBackgroundClick}
               onConfirm={handleConfirmDeletePublication}
+              loading={loading}
             >
               Are you sure you want to delete this publication?
             </ModalDelete>

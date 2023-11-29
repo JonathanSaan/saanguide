@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { CircularProgress } from "react-cssfx-loading";
 import Cookies from "js-cookie";
 
 import postRegister from "../api/postRegister";
@@ -23,20 +24,21 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   
   const [usernameRegistered, setUsernameRegistered] = useState("");
   const [emailRegistered, setEmailRegistered] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    document.body.style.cursor = "wait";
+    setLoading(true);
     const response = await postRegister(data);
     setUsernameRegistered("");
     setEmailRegistered("");
 
     if (response.status === 403 && response.usernameRegistered) {
-      document.body.style.cursor = "default";
+      setLoading(false);
       setUsernameRegistered(response.message);
     }
   
     if (response.status === 403 && response.emailRegistered) {
-      document.body.style.cursor = "default";
+      setLoading(false);
       setEmailRegistered(response.message);
     }
 
@@ -47,7 +49,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
       Cookies.set("user", JSON.stringify(user), { expires: 1 });
       setIsLoggedIn("user", JSON.stringify(user));
       handleRemoveBackgroundClick();
-      document.body.style.cursor = "default";
+      setLoading(false);
     }
   };
 
@@ -129,7 +131,9 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         />
         {useFormErrorMessage(errors, "repeatPassword")}
 
-        <button className={styles.container_formButton}>register</button>
+        <button disabled={loading} className={styles.container_formButton}>
+          {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "register"}
+        </button>
       </form>
 
       <p className={styles.containerText}>

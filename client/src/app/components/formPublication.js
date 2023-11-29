@@ -6,10 +6,11 @@ import { useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import FileBase64 from "react-file-base64";
+import { CircularProgress } from "react-cssfx-loading";
 
 import styles from "../styles/publish_edit.module.scss";
 
-const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPhotoBase64Change, coverPhoto, setCoverPhoto, description, handleDescriptionUpdate, label }) => {
+const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPhotoBase64Change, coverPhoto, setCoverPhoto, description, handleDescriptionUpdate, loading, label }) => {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
@@ -53,7 +54,9 @@ const formPublication = ({ handleSubmit, title, handleTitleChange, handleCoverPh
         onChange={handleDescriptionUpdate}
         modules={modules} 
       />
-      <button className={styles.publish_edit_containerButton} disabled={!title || !coverPhoto || !description}>{label}</button>
+      <button className={styles.publish_edit_containerButton} disabled={!title || !coverPhoto || !description}>
+        {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : label}
+      </button>
     </form>
   );
 };

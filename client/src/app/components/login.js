@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { CircularProgress } from "react-cssfx-loading";
 import Cookies from "js-cookie";
 
 import PostLogin from "../api/postLogin";
@@ -21,13 +22,14 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
   const { setIsLoggedIn } = useContext(UserContext);
   
   const [accountNotFound, setAccountNotFound] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    document.body.style.cursor = "wait";
+    setLoading(true);
     const response = await PostLogin(data);
 
     if (response.error) {
-      document.body.style.cursor = "default";
+      setLoading(false);
       return setAccountNotFound(response.message);
     }
 
@@ -38,7 +40,7 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
     Cookies.set("user", JSON.stringify(user), { expires: 1 });
     setIsLoggedIn("user", JSON.stringify(user));
     handleRemoveBackgroundClick();
-    document.body.style.cursor = "default";
+    setLoading(false);
   };
 
   return (
@@ -80,7 +82,9 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         />
         {useFormErrorMessage(errors, "password")}
 
-        <button className={styles.container_formButton}>Login</button>
+        <button disabled={loading} className={styles.container_formButton}>
+          {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "Login"}
+        </button>
       </form>
 
       <p className={styles.containerText}>

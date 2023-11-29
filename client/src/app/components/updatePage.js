@@ -16,6 +16,7 @@ const UpdatePage = () => {
   const searchParams = useSearchParams();
   const slugUrl = searchParams.get("slug");
   const { isLoggedIn, isAdmin } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [coverPhoto, setCoverPhoto] = useState("");
@@ -48,7 +49,7 @@ const UpdatePage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    document.body.style.cursor = "wait";
+    setLoading(true);
     const response = await updatePublication({
       title: title,
       slug: slugUrl,
@@ -58,11 +59,11 @@ const UpdatePage = () => {
     });
 
     if (response.error) {
-      document.body.style.cursor = "default";
+      setLoading(false);
       return setError(response.message);
     }
 
-    document.body.style.cursor = "default";
+    setLoading(false);
     setError("");
     router.push("/");
   };
@@ -87,6 +88,7 @@ const UpdatePage = () => {
             setCoverPhoto={setCoverPhoto}
             description={description}
             handleDescriptionUpdate={handleDescriptionUpdate}
+            loading={loading}
             label="Update"
           />
         </main>
