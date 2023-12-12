@@ -141,8 +141,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         <span
           className={styles.containerTextLink}
           onClick={() => handleFormClick("login")}
-        >
-          Login
+        > Login
         </span>
       </p>
     </dialog>
