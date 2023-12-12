@@ -206,7 +206,7 @@ const Comments = ({ slug }) => {
                   <h5 className={styles.post_container_comments_commentTime}>{time}</h5>
                   {isOwner && (
                     <>
-                      <button className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>
+                      <button title="Delete" className={styles.post_container_comments_commentDelete} onClick={(event) => handleDeleteComment(comment.idComment, event)}>
                         <BsFillTrashFill size={20} />
                       </button>
                       <ModalDelete
@@ -223,11 +223,11 @@ const Comments = ({ slug }) => {
                   <p className={styles.post_container_comments_commentByUser}>{comment.comment}</p>
                 </span>
                 <div className={styles.post_container_comments_commentActions}>
-                  <button onClick={() => handleLikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userLiked ? styles.blue : ""}`}>
+                  <button title="Like" onClick={() => handleLikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userLiked ? styles.blue : ""}`}>
                     <BiLike size={23} />
                   </button>
                   <label className={styles.post_container_comments_commentActionsLabel}>{comment.likes.length}</label>
-                  <button onClick={() => handleDislikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userDisliked ? styles.blue : ""}`}>
+                  <button title="Dislike" onClick={() => handleDislikeClick(slug, comment.idComment)} className={`${styles.post_container_comments_commentActionsButton} ${userDisliked ? styles.blue : ""}`}>
                     <BiDislike size={23} />
                   </button>
                   <label className={styles.post_container_comments_commentActionsLabel}>{comment.dislikes.length}</label>

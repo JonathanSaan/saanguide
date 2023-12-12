@@ -131,7 +131,7 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         />
         {useFormErrorMessage(errors, "repeatPassword")}
 
-        <button disabled={!title || !coverPhoto || !description || loading} className={styles.container_formButton}>
+        <button disabled={loading} className={styles.container_formButton}>
           {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "Register"}
         </button>
       </form>

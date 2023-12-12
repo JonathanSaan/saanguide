@@ -82,7 +82,7 @@ const Login = ({ handleFormClick, handleRemoveBackgroundClick }) => {
         />
         {useFormErrorMessage(errors, "password")}
 
-        <button disabled={!title || !coverPhoto || !description || loading} className={styles.container_formButton}>
+        <button disabled={loading} className={styles.container_formButton}>
           {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "Login"}
         </button>
       </form>
