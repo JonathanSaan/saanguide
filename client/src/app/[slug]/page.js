@@ -65,8 +65,8 @@ const Post = async ({ params }) => {
             alt="Picture of the post"
           />
           <span className={styles.post_container_details}>
-            <p className={styles.post_container_detailsAuthor}>{post.author}</p>
-            <p className={styles.post_container_detailsDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</p>
+            <span className={styles.post_container_detailsAuthor}>{post.author}</span>
+            <span className={styles.post_container_detailsDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</span>
           </span>
           <div className={styles.post_container_description} dangerouslySetInnerHTML={{ __html: post.description }}></div>
           <Comments slug={params.slug} />

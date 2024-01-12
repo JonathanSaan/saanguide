@@ -26,7 +26,7 @@
     }
 
     .post_containerImage {
-      margin: 2rem 0 0 0;
+      margin: 2rem 0 auto 0;
       min-height: 25rem;
       height: 37vw;
       width: 100%;
@@ -36,6 +36,7 @@
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      outline: none;
       -webkit-box-pack: justify;
       -ms-flex-pack: justify;
       justify-content: space-between;
@@ -44,7 +45,14 @@
 
       .post_container_detailsAuthor {
         color: $blue-color;
-        cursor: default;
+        
+        &::-moz-selection {
+    	  color: $white-color;
+  	    }
+
+        &::selection {
+          color: $white-color;
+  	    }
       }
 
       .post_container_detailsDate {

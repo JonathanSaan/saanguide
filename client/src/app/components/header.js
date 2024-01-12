@@ -73,27 +73,27 @@ const Header = () => {
         <Link className={styles.headerLogo} href="/">
           Saan's Guidebook
         </Link>
-        <ul className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
+        <div className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
           {isAdmin && (
-            <li className={styles.header_menuItem}>
+            <button className={styles.header_menuItem}>
               <Link href="/publish">Publish</Link>
-            </li>
+            </button>
           )}
           {isLoggedIn ? (
-            <li className={styles.header_menuItem} onClick={handleSignOut}>
+            <button className={styles.header_menuItem} onClick={handleSignOut}>
               <Link href="/">Leave</Link>
-            </li>
+            </button>
           ) : (
             <>
-              <li className={styles.header_menuItem} onClick={() => handleFormClick("login")}>
+              <button className={styles.header_menuItem} onClick={() => handleFormClick("login")}>
                 Login
-              </li>
-              <li className={styles.header_menuItem} onClick={() => handleFormClick("register")}>
+              </button>
+              <button className={`${styles.header_menuItem} ${styles.register}`} onClick={() => handleFormClick("register")}>
                 Register
-              </li>
+              </button>
             </>
           )}
-        </ul>
+        </div>
 
         <div
           className={`${styles.header_hamburger} ${menuActive ? styles.active : ""}`}

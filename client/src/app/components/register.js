@@ -135,15 +135,10 @@ const Register = ({ handleFormClick, handleRemoveBackgroundClick }) => {
           {loading ? <CircularProgress color={"#fafaf9"} height="2em" width="2em" /> : "Register"}
         </button>
       </form>
-
-      <p className={styles.containerText}>
-        Already have an account?
-        <span
-          className={styles.containerTextLink}
-          onClick={() => handleFormClick("login")}
-        > Login
-        </span>
-      </p>
+	    <span>
+      	<p className={styles.containerText}>Already have an account?</p>
+      	<button className={styles.containerTextLink} onClick={() => handleFormClick("login")}>Login</button>
+      </span>
     </dialog>
   );
 };
