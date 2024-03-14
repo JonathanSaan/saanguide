@@ -1,14 +1,15 @@
-"use client"
+"use client";
 
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useMemo } from "react";
 import Cookies from "js-cookie";
 
 import Loading from "./loading";
 
 const UserContext = createContext();
 
-const UserProvider = ({ children }) => {
+const UserProvider = React.memo(({ children }) => {
   const userString = Cookies.get("user");
+  
   const [showConsent, setShowConsent] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [isAdmin, setIsAdmin] = useState();
@@ -23,17 +24,22 @@ const UserProvider = ({ children }) => {
     
     const cookieConsent = Cookies.get("showConsent");
     setShowConsent(cookieConsent !== "false");
-    
-    if (typeof window === "undefined") {
-      return <Loading />;
-    }
   }, [userString]);
 
+  const contextValue = useMemo(() => ({
+    isLoggedIn,
+    setIsLoggedIn,
+    isAdmin,
+    setIsAdmin,
+    showConsent,
+    setShowConsent
+  }), [isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, showConsent, setShowConsent]);
+
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, showConsent, setShowConsent }}>
+    <UserContext.Provider value={contextValue}>
       {children}
     </UserContext.Provider>
   );
-};
+});
 
 export { UserContext, UserProvider };

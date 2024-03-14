@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import Cookies from "js-cookie";
 import { UserContext } from "./UserContext";
 import Loading from "./loading";
@@ -15,12 +15,14 @@ const CheckCookie = ({ children }) => {
     setIsLoggedIn(user);
     setLoading(false);
   }, [setIsLoggedIn]);
+  
+  const memoizedChildren = useMemo(() => children, [children]);
 
   if (loading) {
     return <Loading />;
   }
 
-  return children;
+  return memoizedChildren;
 };
 
 export default CheckCookie;
