@@ -3,8 +3,6 @@
 import React, { createContext, useState, useEffect, useMemo } from "react";
 import Cookies from "js-cookie";
 
-import Loading from "./loading";
-
 const UserContext = createContext();
 
 const UserProvider = React.memo(({ children }) => {
@@ -17,10 +15,6 @@ const UserProvider = React.memo(({ children }) => {
   useEffect(() => {
     const user = typeof userString !== "undefined" ? JSON.parse(userString) : null;
     setIsLoggedIn(user);
-
-    if (user && user.isAdmin !== undefined) {
-      setIsAdmin(user.isAdmin);
-    }
     
     const cookieConsent = Cookies.get("showConsent");
     setShowConsent(cookieConsent !== "false");
