@@ -14,9 +14,9 @@ const UserProvider = React.memo(({ children }) => {
   
   useEffect(() => {
     const user = typeof userString !== "undefined" ? JSON.parse(userString) : null;
-    setIsLoggedIn(user);
-    
     const cookieConsent = Cookies.get("showConsent");
+    
+    setIsLoggedIn(user);
     setShowConsent(cookieConsent !== "false");
   }, [userString]);
 
