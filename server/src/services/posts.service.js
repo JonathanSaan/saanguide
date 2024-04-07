@@ -1,5 +1,4 @@
 import Posts from "../models/Posts.js";
-import client from "../helpers/redis.js";
 
 export const createService = (body) => Posts.create(body);
 
@@ -27,17 +26,9 @@ export const findAllService = async () => {
 };
 
 export const findBySlugService = async (slug) => {
-  const postFromCache = await client.get(slug);
-  
-  if (postFromCache) {
-    return postFromCache;
-  }
-  
   const post = await Posts.findOne({ slug });
   
   if (!post) return null;
-
-  client.set(slug, post, {ex: 3600});
   
   return post;
 }
