@@ -1,10 +1,54 @@
 import Posts from "../models/Posts.js";
+import client from "../helpers/redis.js";
 
 export const createService = (body) => Posts.create(body);
 
-export const findAllService = () => Posts.find();
+export const findAllService = async () => {
+  //const postsFromCache = await client.smembers("all_posts");
+  
+  //if (postsFromCache) {
+  //  return JSON.parse(postsFromCache);
+  //}
 
-export const findBySlugService = (slug) => Posts.findOne({ slug });
+  const posts = await Posts.find().exec();
+
+  if (!posts) return null;
+
+  const recentPosts = posts.sort((a, b) =>
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
+  const postsDetails = {
+    results: recentPosts.map((item) => ({
+      id: item.id,
+      title: item.title,
+      slug: item.slug,
+      author: item.author,
+      banner: item.banner,
+      createdAt: item.createdAt,
+    })),
+  };
+
+  //client.set("all_posts", JSON.stringify(postsDetails), {ex: 3600});
+  
+  return postsDetails;
+};
+
+export const findBySlugService = async (slug) => {
+  const postFromCache = await client.get(slug);
+  
+  if (postFromCache) {
+    return postFromCache;
+  }
+  
+  const post = await Posts.findOne({ slug });
+  
+  if (!post) return null;
+
+  client.set(slug, post, {ex: 3600});
+  
+  return post;
+}
 
 export const updateService = (oldSlug, newSlug, title, banner, description) =>
   Posts.findOneAndUpdate(

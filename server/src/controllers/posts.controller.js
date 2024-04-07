@@ -41,20 +41,7 @@ export const findAll = async (req, res) => {
       return res.status(400).send({ message: "There are no registered posts" });
     }
     
-    const recentPosts = posts.sort((a, b) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
-    
-    res.send({
-      results: recentPosts.map((item) => ({
-        id: item.id,
-        title: item.title,
-        slug: item.slug,
-        author: item.author,
-        banner: item.banner,
-        createdAt: item.createdAt,
-      })),
-    });
+    res.send(recentPosts);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
