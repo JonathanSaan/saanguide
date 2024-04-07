@@ -4,12 +4,6 @@ import client from "../helpers/redis.js";
 export const createService = (body) => Posts.create(body);
 
 export const findAllService = async () => {
-  //const postsFromCache = await client.smembers("all_posts");
-  
-  //if (postsFromCache) {
-  //  return JSON.parse(postsFromCache);
-  //}
-
   const posts = await Posts.find().exec();
 
   if (!posts) return null;
@@ -28,8 +22,6 @@ export const findAllService = async () => {
       createdAt: item.createdAt,
     })),
   };
-
-  //client.set("all_posts", JSON.stringify(postsDetails), {ex: 3600});
   
   return postsDetails;
 };

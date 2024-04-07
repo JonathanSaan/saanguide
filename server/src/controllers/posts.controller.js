@@ -37,11 +37,11 @@ export const findAll = async (req, res) => {
   try {
     const posts = await findAllService();
 
-    if (posts.length === 0) {
+    if (!posts) {
       return res.status(400).send({ message: "There are no registered posts" });
     }
     
-    res.send(recentPosts);
+    res.send(posts);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
