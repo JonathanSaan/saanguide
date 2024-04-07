@@ -7,16 +7,16 @@ export const create = async (req, res) => {
     const slug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '').trim();
 
     if (!title || !author || !banner || !description) {
-      res.status(400).send({ message: "Submit all fields for registration" });
+      return res.status(400).send({ message: "Submit all fields for registration" });
     }
 
     if (!isAdmin) {
-      res.status(400).send({ message: "You don't have permission to create the post." });
+      return res.status(400).send({ message: "You don't have permission to create the post." });
     }
 
     const existingPost = await findBySlugService(slug);
     if (existingPost) {
-      res.status(409).send({ message: "Post with this title already exists." });
+      return res.status(409).send({ message: "Post with this title already exists." });
     }
 
     await createService({
@@ -38,7 +38,7 @@ export const findAll = async (req, res) => {
     const posts = await findAllService();
 
     if (!posts) {
-      res.status(400).send({ message: "There are no registered posts" });
+      return res.status(400).send({ message: "There are no registered posts" });
     }
     
     res.send(posts);
@@ -53,10 +53,10 @@ export const findBySlug = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
-    res.send(post);
+    return res.send(post);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -75,23 +75,23 @@ export const update = async (req, res) => {
     const post = await findBySlugService(slug);
     
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
     
     if (!isAdmin) {
-      res.status(400).send({ message: "You didn't update this post" });
+      return res.status(400).send({ message: "You didn't update this post" });
     }
     
     const newSlug = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '').trim();
 
     const existingPost = await findBySlugService(newSlug);
     if (existingPost) {
-      res.status(409).send({ message: "Post with this title already exists." });
+      return res.status(409).send({ message: "Post with this title already exists." });
     }
 
     await updateService(slug, newSlug, title, banner, description);
 
-    res.send({ message: "Post updated successfully!" });
+    return res.send({ message: "Post updated successfully!" });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -105,16 +105,16 @@ export const erase = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
     if (!isAdmin) {
-      res.status(400).send({ message: "You didn't delete this post" });
+      return res.status(400).send({ message: "You didn't delete this post" });
     }
 
     await eraseService(slug);
 
-    res.send({ message: "Post deleted successfully" });
+    return res.send({ message: "Post deleted successfully" });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -127,7 +127,7 @@ export const getAllCommentsBySlug = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found" });
+      return res.status(404).send({ message: "Post not found" });
     }
 
     const allComments = post.comments;
@@ -145,7 +145,7 @@ export const addComment = async (req, res) => {
     const { comment } = req.body;
 
     if (!comment) {
-      res.status(400).send({ message: "Write a message to comment" });
+      return res.status(400).send({ message: "Write a message to comment" });
     }
 
     await addCommentService(slug, comment, username);
@@ -164,13 +164,13 @@ export const addLikeToComment = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
     const commentLiked = await addLikeToCommentService(slug, idComment, username);
 
     if (!commentLiked) {
-      res.status(404).send({ message: "Comment not found." });
+      return res.status(404).send({ message: "Comment not found." });
     }
     
     res.send({ message: "Like added/removed successfully" });
@@ -186,7 +186,7 @@ export const addDislikeToComment = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
 
     const commentDisliked = await addDislikeToCommentService(slug, idComment, username);
@@ -209,13 +209,13 @@ export const addLikeToReply = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
     
     const replyLiked = await addLikeToReplyService(slug, idComment, idReply, username);
 
     if (!replyLiked) {
-      res.status(200).send({ message: "Reply not found." });
+      return res.status(200).send({ message: "Reply not found." });
     }
     
     res.send({ message: "Like added/removed successfully" });
@@ -231,7 +231,7 @@ export const addDislikeToReply = async (req, res) => {
     const post = await findBySlugService(slug);
 
     if (!post) {
-      res.status(404).send({ message: "Post not found." });
+      return res.status(404).send({ message: "Post not found." });
     }
     
     const replyDisliked = await addDislikeToReplyService(slug, idComment, idReply, username);
@@ -257,11 +257,11 @@ export const deleteComment = async (req, res) => {
     const commentFinder = commentDeleted.comments.find(comment => comment.idComment === idComment);
     
     if (!commentFinder) {
-      res.status(404).send({ message: "Comment not found" });
+      return res.status(404).send({ message: "Comment not found" });
     }
     
     if (commentFinder.username !== username && !isAdmin) {
-      res.status(400).send({ message: "You can't delete this comment" });
+      return res.status(400).send({ message: "You can't delete this comment" });
     }
 	
     res.send({ message: "Comment successfully removed!" });
@@ -277,7 +277,7 @@ export const addReply = async (req, res) => {
     const { replyText } = req.body;
 
     if (!replyText) {
-      res.status(400).send({ message: "Write a reply to comment" });
+      return res.status(400).send({ message: "Write a reply to comment" });
     }
 
     await addReplyService(slug, idComment, replyText, username);
@@ -299,11 +299,11 @@ export const deleteReply = async (req, res) => {
     const replyFinder = replyDeleted.comments.find((comment) => comment.replies.some((reply) => reply.idReply === idReply));
 
     if (!replyFinder) {
-      res.status(404).send({ message: "Reply not found" });
+      return res.status(404).send({ message: "Reply not found" });
     }
 
     if (replyFinder.replies.username !== username && !isAdmin) {
-      res.status(400).send({ message: "You can't delete this reply" });
+      return res.status(400).send({ message: "You can't delete this reply" });
     }
 
     res.send({ message: "Reply successfully removed!" });

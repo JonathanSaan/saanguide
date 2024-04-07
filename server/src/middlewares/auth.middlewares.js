@@ -10,25 +10,25 @@ const authMiddleware = (req, res, next) => {
     const { authorization } = req.headers;
     
     if (!authorization) {
-      res.status(401).send("Unauthorized");
+      return res.status(401).send("Unauthorized");
     }
     
     const parts = authorization.split(" ");
     const [schema, token] = parts;
 
     if (schema !== "Bearer") {
-      res.status(401).send("Unauthorized");
+      return res.status(401).send("Unauthorized");
     }
 
     jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
       if (error) {
-        res.status(401).send({ message: "You need to be logged in." });
+        return res.status(401).send({ message: "You need to be logged in." });
       }
       console.log(decoded);
       const user = await findByIdService(decoded.id);
       
       if (!user || !user.id) {
-        res.status(404).send({ message: "Invalid token!" });
+        return res.status(404).send({ message: "Invalid token!" });
       }
   
       req.userId = user._id;

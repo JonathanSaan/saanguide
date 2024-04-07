@@ -15,17 +15,17 @@ export const login = async (req, res) => {
     }
 
     if (errors.length > 0) {
-      res.status(400).send({ messages: errors });
+      return res.status(400).send({ messages: errors });
     }
     
     if (!password || password.length < 8) {
-      res.status(400).send({ message: "Password must have at least 8 characters" });
+      return res.status(400).send({ message: "Password must have at least 8 characters" });
     }
     
     const user = await loginService(email);
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
-      res.status(404).send({ message: "User or Password not found" });
+      return res.status(404).send({ message: "User or Password not found" });
     }
 
     const token = generateTokenService(user._id);
@@ -50,7 +50,7 @@ export const register = async (req, res) => {
     
     const existingUsername = await findByUsernameService(username);
     if (existingUsername) {
-      res.status(403).send({ usernameRegistered: true, message: "Username is already in use. Please choose a different username." });
+      return res.status(403).send({ usernameRegistered: true, message: "Username is already in use. Please choose a different username." });
     }
 
     if (!username) {
@@ -59,7 +59,7 @@ export const register = async (req, res) => {
 
     const existingEmail = await findByEmailService(email);
     if (existingEmail) {
-      res.status(403).send({ emailRegistered: true, message: "Email is already in use. Please choose a different email." });
+      return res.status(403).send({ emailRegistered: true, message: "Email is already in use. Please choose a different email." });
     }
 
     if (!email) {
@@ -75,39 +75,39 @@ export const register = async (req, res) => {
     }
 
     if (errors.length > 0) {
-      res.status(400).send({ messages: errors });
+      return res.status(400).send({ messages: errors });
     }
 
     if (username.length < 4) {
-      res.status(400).send({ message: "Username must have at least 4 characters." });
+      return res.status(400).send({ message: "Username must have at least 4 characters." });
     }
     
     if (username.length > 50) {
-      res.status(400).send({ message: "Username must have a maximum of 50 characters" });
+      return res.status(400).send({ message: "Username must have a maximum of 50 characters" });
     }
 
     const usernameRegex = /^[a-zA-Z0-9_-]+$/;
     if (!usernameRegex.test(username)) {
-      res.status(400).send({ message: "Username can only contain letters, numbers, underscores, and hyphens." });
+      return res.status(400).send({ message: "Username can only contain letters, numbers, underscores, and hyphens." });
     }
     
     if (password.length < 8 || repeatPassword.length < 8) {
-      res.status(400).send({ message: "Passwords must have at least 8 characters." });
+      return res.status(400).send({ message: "Passwords must have at least 8 characters." });
     }
     
     if (password !== repeatPassword) {
-      res.status(400).send({ message: "Passwords must be the same." });
+      return res.status(400).send({ message: "Passwords must be the same." });
     }
 
     const specialChars = /[!@#$%^&*(),.?":{}|<>]/;
     if (!specialChars.test(password) || !specialChars.test(repeatPassword)) {
-      res.status(400).send({ message: "The password must contain at least one special character." });
+      return res.status(400).send({ message: "The password must contain at least one special character." });
     }
     
     const user = await createService(req.body);
 
     if (!user) {
-      res.status(400).send({ message: "Error creating user" });
+      return res.status(400).send({ message: "Error creating user" });
     }
     
     const token = generateTokenService(user._id);
