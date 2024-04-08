@@ -16,6 +16,7 @@ const UserProvider = React.memo(({ children }) => {
     const cookieConsent = Cookies.get("showConsent");
     
     setIsLoggedIn(user);
+    setIsAdmin(user?.isAdmin);
     setShowConsent(cookieConsent !== "false");
   }, [userString]);
 
