@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDatabase from "./database/db.js";
 import postsRouter from "./routes/posts.route.js"
 import authRoute from "./routes/auth.route.js"
+import client from "./helpers/redis.js";
 
 dotenv.config();
 
@@ -22,4 +23,9 @@ app.use(express.json());
 app.use("/", postsRouter);
 app.use("/auth", authRoute);
 
-app.listen(port, () => console.log("working server"));
+const startup = async () => {
+  await client.connect();
+  app.listen(port, () => console.log("working server"));
+};
+
+startup();
