@@ -29,7 +29,7 @@ export const findAllService = async () => {
     })),
   };
   
-  await client.set("all_posts", 3600, JSON.stringify(postsDetails));
+  client.setEx("all_posts", 3600, JSON.stringify(postsDetails));
   
   return postsDetails;
 };
@@ -45,7 +45,7 @@ export const findBySlugService = async (slug) => {
   
   if (!post) return null;
   
-  await client.set(slug, 3600, JSON.stringify(post));
+  client.setEx(slug, 3600, JSON.stringify(post));
   
   return post;
 }
