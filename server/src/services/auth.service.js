@@ -7,18 +7,6 @@ export const createService = (body) => User.create(body);
 
 export const generateTokenService = (id) => jwt.sign({ id: id }, process.env.SECRET_JWT, { expiresIn: "24h" });
 
-export const findByUsernameService = async (username) => {
-  const foundUsername = await User.findOne({ username });
+export const findByUsernameService = (username) => User.findOne({ username });
 
-  if (!foundUsername) return null;
-  
-  return foundUsername;
-};
-
-export const findByEmailService = async (email) => {
-  const foundEmail = await User.findOne({ email });
-
-  if (!foundEmail) return null;
-
-  return foundEmail;
-};
+export const findByEmailService = (email) => User.findOne({ email });
