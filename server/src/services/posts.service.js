@@ -4,6 +4,12 @@ import client from "../helpers/redis.js";
 export const createService = (body) => Posts.create(body);
 
 export const findAllService = async () => {
+  const cachedPosts = await client.get("all_posts");
+  
+  if (cachedPosts) {
+    return JSON.parse(cachedPosts);
+  }
+  
   const posts = await Posts.find().exec();
 
   if (!posts) return null;
@@ -23,6 +29,8 @@ export const findAllService = async () => {
     })),
   };
   
+  await client.set("all_posts", 3600, JSON.stringify(postsDetails));
+  
   return postsDetails;
 };
 
@@ -37,7 +45,7 @@ export const findBySlugService = async (slug) => {
   
   if (!post) return null;
   
-  await client.set(slug, JSON.stringify(post));
+  await client.set(slug, 3600, JSON.stringify(post));
   
   return post;
 }
