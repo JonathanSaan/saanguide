@@ -29,11 +29,10 @@ export const metadata = {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: `https://www.saanguide.com cover image`,
+        alt: "saanguide website logo with a dark background",
       },
     ],
     type: "website",
-    publishedTime: post.createdAt,
   },
   twitter: {
     card: "summary_large_image",
@@ -42,7 +41,7 @@ export const metadata = {
       "Explore captivating insights and stories across a variety of topics, all curated from a place of passion and expertise.",
     image: {
       url: "/logo.png",
-      alt: `https://www.saanguide.com cover image`,
+      alt: "saanguide website logo with a dark background",
     },
   },
 };
