@@ -12,26 +12,27 @@ import Register from "./register";
 import styles from "../styles/header.module.scss";
 
 const Header = () => {
-  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } =
+    useContext(UserContext);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showBackground, setShowBackground] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [headerLowZIndex, setHeaderLowZIndex] = useState(false);
-  
+
   const handleSignOut = () => {
     Cookies.remove("user");
     Cookies.remove("token");
     setIsLoggedIn(null);
     setIsAdmin(null);
   };
-  
+
   const handleFormClick = (type) => {
     setShowBackground(true);
     setMenuActive(false);
     setHeaderLowZIndex(true);
     document.body.style.overflow = "hidden";
-    
+
     if (type === "login") {
       setShowLogin(!showLogin);
       setShowRegister(false);
@@ -58,22 +59,28 @@ const Header = () => {
     setShowBackground(!menuActive);
     setHeaderLowZIndex(menuActive);
   };
-  
+
   useEffect(() => {
     window.addEventListener("resize", handleRemoveBackgroundClick);
-    
+
     return () => {
       window.removeEventListener("resize", handleRemoveBackgroundClick);
     };
   }, []);
-  
+
   return (
     <>
-      <header className={`${styles.header} ${headerLowZIndex ? styles.headerLowZIndex : ""}`}>
+      <header
+        className={`${styles.header} ${
+          headerLowZIndex ? styles.headerLowZIndex : ""
+        }`}
+      >
         <Link className={styles.headerLogo} href="/">
-          Saan's Guidebook
+          saanguide
         </Link>
-        <div className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}>
+        <div
+          className={`${styles.header_menu} ${menuActive ? styles.active : ""}`}
+        >
           {isAdmin && (
             <button className={styles.header_menuItem}>
               <Link href="/publish">Publish</Link>
@@ -85,10 +92,16 @@ const Header = () => {
             </button>
           ) : (
             <>
-              <button className={styles.header_menuItem} onClick={() => handleFormClick("login")}>
+              <button
+                className={styles.header_menuItem}
+                onClick={() => handleFormClick("login")}
+              >
                 Login
               </button>
-              <button className={`${styles.header_menuItem} ${styles.register}`} onClick={() => handleFormClick("register")}>
+              <button
+                className={`${styles.header_menuItem} ${styles.register}`}
+                onClick={() => handleFormClick("register")}
+              >
                 Register
               </button>
             </>
@@ -96,7 +109,9 @@ const Header = () => {
         </div>
 
         <div
-          className={`${styles.header_hamburger} ${menuActive ? styles.active : ""}`}
+          className={`${styles.header_hamburger} ${
+            menuActive ? styles.active : ""
+          }`}
           onClick={toggleMenu}
         >
           <span className={styles.header_hamburgerBar}></span>
@@ -120,8 +135,8 @@ const Header = () => {
       )}
       {showRegister && (
         <Register
-          handleFormClick={handleFormClick} 
-          handleRemoveBackgroundClick={handleRemoveBackgroundClick} 
+          handleFormClick={handleFormClick}
+          handleRemoveBackgroundClick={handleRemoveBackgroundClick}
         />
       )}
       <Analytics debug={false} />

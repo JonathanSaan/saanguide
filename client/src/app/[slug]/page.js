@@ -17,15 +17,40 @@ export async function generateMetadata({ params }) {
     const post = await getPost(params.slug);
 
     return {
-      title: `${post.title} - Saan's Guidebook`,
-      description: `An article by ${post.title} - Saan's Guidebook`,
+      title: `${post.title} - saanguide`,
+      description: `An article by ${post.title} - saanguide`,
       alternates: {
-        canonical: `/${post.slug}`,
+        canonical: `https://www.saanguide.com/${post.slug}`,
+      },
+      publisher: post.author,
+      openGraph: {
+        title: `${post.title} - saanguide`,
+        description: `An article by ${post.title} - saanguide`,
+        url: `https://www.saanguide.com/${post.slug}`,
+        images: [
+          {
+            url: post.banner,
+            width: 1200,
+            height: 630,
+            alt: `${post.title} cover image`,
+          },
+        ],
+        type: "article",
+        publishedTime: post.createdAt,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${post.title} - saanguide`,
+        description: `An article by ${post.title} - saanguide`,
+        image: {
+          url: post.banner,
+          alt: `${post.title} cover image`,
+        },
       },
     };
   } catch (error) {
     return {
-      title: "Not Found - Saan's Guidebook",
+      title: "Not Found - saanguide",
       description: "The page you are looking for does not exist.",
     };
   }
@@ -65,10 +90,17 @@ const Post = async ({ params }) => {
             alt="Picture of the post"
           />
           <span className={styles.post_container_details}>
-            <span className={styles.post_container_detailsAuthor}>{post.author}</span>
-            <span className={styles.post_container_detailsDate}>{moment(post.createdAt).format("MMM DD, YYYY")}</span>
+            <span className={styles.post_container_detailsAuthor}>
+              {post.author}
+            </span>
+            <span className={styles.post_container_detailsDate}>
+              {moment(post.createdAt).format("MMM DD, YYYY")}
+            </span>
           </span>
-          <div className={styles.post_container_description} dangerouslySetInnerHTML={{ __html: post.description }}></div>
+          <div
+            className={styles.post_container_description}
+            dangerouslySetInnerHTML={{ __html: post.description }}
+          ></div>
           <Comments slug={params.slug} />
         </article>
       </main>
