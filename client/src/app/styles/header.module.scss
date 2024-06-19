@@ -16,8 +16,14 @@
   z-index: 1;
 
   .headerLogo {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     cursor: pointer;
+    justify-content: space-between;
+    width: 11rem;
     margin: 0 auto 0 0;
     color: $white-color;
     font-size: 2rem;
@@ -92,7 +98,8 @@
     z-index: 3;
     
     .headerLogo {
-      font-size: 1.5rem;
+      width: 10rem;
+      font-size: 1.8rem;
     }
   
     .header_menu {
@@ -156,7 +163,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .header_menu {
     .header_menuItem {
       &.register {

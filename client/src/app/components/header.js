@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
+import Image from "next/image";
 
 import Cookies from "js-cookie";
 import { Analytics } from "@vercel/analytics/react";
@@ -76,6 +77,12 @@ const Header = () => {
         }`}
       >
         <Link className={styles.headerLogo} href="/">
+          <Image
+            src="/icon.png"
+            width={35}
+            height={35}
+            alt="icon from this site"
+          />
           saanguide
         </Link>
         <div
