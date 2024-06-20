@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@vercel/analytics": ["./node_modules/@vercel/analytics/dist"]
     }
   }
 }
